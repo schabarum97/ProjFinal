@@ -44,7 +44,7 @@ CREATE TABLE T_ATIVIDADE (
     TAR_ID INT REFERENCES T_TAREFAS(TAR_ID), -- Tarefa a qual a atividade está ligada
     STT_ID INT REFERENCES T_STATUS(STT_ID)  -- Status da atividade
 );
-
+--aaa
 CREATE TABLE T_LOGIN (
     LOG_ID SERIAL PRIMARY KEY,     -- Chave PK
     LOG_NOME TEXT NOT NULL UNIQUE, -- Nome do user que está loganda
