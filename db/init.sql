@@ -1,73 +1,89 @@
--- Tabela para armazenar todos os status usados no sistema
-CREATE TABLE T_STATUS (
-    STT_ID SERIAL PRIMARY KEY, -- Chave PK
-    STT_NOME VARCHAR(100),     -- Descrição do status
-    STT_TABELA VARCHAR(1),     -- Identificação sobre qual tabela pode usar o status
-    STT_DATAINI TIMESTAMP,     -- Vigencia inicial 
-    STT_DATAFIM TIMESTAMP,     -- Vigencia final
-    STT_COR VARCHAR(10)        -- Cor para a exibição no quadro
+
+-- tabela para armazenar todos os status usados no sistema
+create table t_status (
+stt_id serial primary key, -- chave pk
+stt_nome varchar(100), -- descrição do status
+stt_tabela varchar(1), -- identificação sobre qual tabela pode usar o status
+stt_dataini timestamp, -- vigencia inicial
+stt_datafim timestamp, -- vigencia final
+stt_cor varchar(10) -- cor para a exibição no quadro
 );
--- Tabela para armazenar todos os projetos
-CREATE TABLE T_PROJETO (
-    PRJ_ID SERIAL PRIMARY KEY, -- Chave PL
-    PRJ_NOME VARCHAR(100) NOT NULL, -- Nome do projeto
-    PRJ_DESCRICAO TEXT, -- Descrição detalhado do que se trata o projeto
-    PRJ_DATAINI DATE,  -- Vigencia inicial do projeto
-    PRJ_DATAFIM DATE,  -- Vigencia final do projeto
-    STT_ID INT REFERENCES T_STATUS(STT_ID) -- Status do projeto
+-- tabela para armazenar todos os projetos
+create table t_projeto (
+prj_id serial primary key, -- chave pl
+prj_nome varchar(100) not null, -- nome do projeto
+prj_descricao text, -- descrição detalhado do que se trata o projeto
+prj_dataini date, -- vigencia inicial do projeto
+prj_datafim date, -- vigencia final do projeto
+stt_id int references t_status(stt_id) -- status do projeto
 );
 
--- Tabela para armazenar todos os funcionários envolvidos em projetos sendo eles observadores, desenvolvedores solicitantes
-CREATE TABLE T_FUNCIONARIO (
-    FUN_ID SERIAL PRIMARY KEY,      -- Chave Pk
-    FUN_NOME VARCHAR(100) NOT NULL, -- Nome funcionário
-    FUN_FUNCAO VARCHAR(50),         -- Função do funcionário
-    FUN_EMAIL VARCHAR(100),         -- Email funcionário
-    FUN_TELEFONE VARCHAR(20),       -- Telefone
-    FUN_CPF VARCHAR(20),            -- CPF/CNPJ funcionário
-    FUN_STATUS VARCHAR(1)           -- Status do funcionário
+-- tabela para armazenar todos os funcionários envolvidos em projetos sendo eles observadores, desenvolvedores solicitantes
+create table t_funcionario (
+fun_id serial primary key, -- chave pk
+fun_nome varchar(100) not null, -- nome funcionário
+fun_funcao varchar(50), -- função do funcionário
+fun_email varchar(100), -- email funcionário
+fun_telefone varchar(20), -- telefone
+fun_cpf varchar(20), -- cpf/cnpj funcionário
+fun_status varchar(1) -- status do funcionário
 );
--- Tabela para armazenar as tarefas
-CREATE TABLE T_TAREFAS (
-    TAR_ID SERIAL PRIMARY KEY,      -- Chave PK
-    TAR_DESCRICAO TEXT NOT NULL,    -- Descrição da tarefa principal
-    TAR_DATAINI DATE,               -- Vigencia inicial
-    TAR_DATAFIM DATE,               -- Vigencia final
-    TAR_HORASTRAB TIME,             -- Horas trabalhadas na tarefa
-    STT_ID INT REFERENCES T_STATUS(STT_ID),  -- Status da tarefa
-    FUN_ID INT REFERENCES T_FUNCIONARIO(FUN_ID),  -- Funcionário ligado a tarefa
-    PRJ_ID INT REFERENCES T_PROJETO(PRJ_ID)  -- Projeto a qual a tarefa está ligada
+-- tabela para armazenar as tarefas
+create table t_tarefas (
+tar_id serial primary key, -- chave pk
+tar_descricao text not null, -- descrição da tarefa principal
+tar_dataini date, -- vigencia inicial
+tar_datafim date, -- vigencia final
+tar_horasTrab time, -- horas trabalhadas na tarefa
+stt_id int references t_status(stt_id), -- status da tarefa
+fun_id int references t_funcionario(fun_id), -- funcionário ligado a tarefa
+prj_id int references t_projeto(prj_id) -- projeto a qual a tarefa está ligada
 );
--- Tarefas para armazenar todas as atividades ligadas a uma tarefa
-CREATE TABLE T_ATIVIDADE (
-    ATV_ID SERIAL PRIMARY KEY, -- Chave PK
-    ATV_DESCRICAO TEXT, -- Descrição do que deve ser feito na atividade
-    ATV_DATAINI TIMESTAMP, -- Vigencia inicial
-    ATV_DATAFIM TIMESTAMP, -- Vigencia final
-    ATV_HORASTRAB TIME,             -- Horas trabalhadas na ATIVIDADE
-    TAR_ID INT REFERENCES T_TAREFAS(TAR_ID), -- Tarefa a qual a atividade está ligada
-    STT_ID INT REFERENCES T_STATUS(STT_ID)  -- Status da atividade
+-- tarefas para armazenar todas as atividades ligadas a uma tarefa
+create table t_atividade (
+atv_id serial primary key, -- chave pk
+atv_descricao text, -- descrição do que deve ser feito na atividade
+atv_dataini timestamp, -- vigencia inicial
+atv_datafim timestamp, -- vigencia final
+atv_horasTrab time, -- horas trabalhadas na atividade
+tar_id int references t_tarefas(tar_id), -- tarefa a qual a atividade está ligada
+stt_id int references t_status(stt_id) -- status da atividade
 );
---Tarefa para armazenar o login do sistemas
-CREATE TABLE T_LOGIN (
-    LOG_ID SERIAL PRIMARY KEY,     -- Chave PK
-    LOG_NOME TEXT NOT NULL UNIQUE, -- Nome do user que está loganda
-    LOG_SALT TEXT NOT NULL,        -- Salt da senha
-    LOG_PASS TEXT NOT NULL         -- Senha criptografada
+--tarefa para armazenar o login do sistemas
+create table t_login (
+log_id serial primary key, -- chave pk
+log_nome text not null unique, -- nome do user que está loganda
+log_salt text not null, -- salt da senha
+log_pass text not null -- senha criptografada
 );
--- Tabela para relacionar as os projetos ligados ao funcionário e também os funcionários ligados aos projetos
-CREATE TABLE L_PROJETO_FUNCIONARIO (
-    PRJ_FUN_ID SERIAL PRIMARY KEY,     -- Chave PK
-    PRJ_ID INT REFERENCES T_PROJETO(PRJ_ID), -- Chave do projeto
-    TAR_ID INT REFERENCES T_TAREFAS(TAR_ID), -- Chave da tarefa
-    STT_ID INT REFERENCES T_STATUS(STT_ID), -- Status
-    CONSTRAINT FK_PROJETO_TAREFA  UNIQUE (PRJ_ID, TAR_ID)
+-- tabela para relacionar as os projetos ligados ao funcionário e também os funcionários ligados aos projetos
+create table l_projeto_funcionario (
+prj_fun_id serial primary key, -- chave pk
+prj_id int references t_projeto(prj_id), -- chave do projeto
+tar_id int references t_tarefas(tar_id), -- chave da tarefa
+stt_id int references t_status(stt_id), -- status
+constraint fk_projeto_tarefa unique (prj_id, tar_id)
 );
--- Tabela para relacionar as atividades ligados ao funcionário e também os funcionários ligados aos atividades
-CREATE TABLE L_FUNCIONARIO_ATIVIDADE (
-    FUN_ATV_ID SERIAL PRIMARY KEY, -- Chave PK
-    FUN_ID INT REFERENCES T_FUNCIONARIO(FUN_ID),
-    ATV_ID INT REFERENCES T_ATIVIDADE(ATV_ID),
-    STT_ID INT REFERENCES T_STATUS(STT_ID), -- Status
-    CONSTRAINT FK_FUNCIONARIO_ATIVIDADE UNIQUE (FUN_ID, ATV_ID)
+-- tabela para relacionar as atividades ligados ao funcionário e também os funcionários ligados aos atividades
+create table l_funcionario_atividade (
+fun_atv_id serial primary key, -- chave pk
+fun_id int references t_funcionario(fun_id),
+atv_id int references t_atividade(atv_id),
+stt_id int references t_status(stt_id), -- status
+constraint fk_funcionario_atividade unique (fun_id, atv_id)
 );
+
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
+('Ativo', 'A', '2024-01-01 00:00:00', '2024-12-31 23:59:59', '#00FF00');
+
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
+('Inativo', 'A', '2024-01-01 00:00:00', '2024-12-31 23:59:59', '#FF0000');
+
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
+('Pendente', 'B', '2024-02-01 00:00:00', '2024-12-31 23:59:59', '#FFFF00');
+
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
+('Concluído', 'B', '2024-03-01 00:00:00', '2024-12-31 23:59:59', '#0000FF');
+
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
+('Cancelado', 'C', '2024-01-01 00:00:00', '2024-12-31 23:59:59', '#FFA500');

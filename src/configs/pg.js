@@ -2,10 +2,10 @@ const { Pool } = require('pg')
 
 const pool = new Pool({
     user: 'admin',
-    host: 'horusdb',
+    host: 'localhost',
     database: 'horus',
     password: '123456',
-    port: 5432,
+    port: 5436,
 })
 
 module.exports = { query: (text, params) => pool.query(text, params) }
