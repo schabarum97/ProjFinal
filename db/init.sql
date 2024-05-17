@@ -26,7 +26,7 @@ fun_funcao varchar(50), -- função do funcionário
 fun_email varchar(100), -- email funcionário
 fun_telefone varchar(20), -- telefone
 fun_cpf varchar(20), -- cpf/cnpj funcionário
-fun_status varchar(1) -- status do funcionário
+stt_id int references t_status(stt_id) -- status do funcionário
 );
 -- tabela para armazenar as tarefas
 create table t_tarefas (

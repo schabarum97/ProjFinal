@@ -41,7 +41,29 @@ const putStatus = async (req, res, next) => {
     }   
 }
 
+const patchStatus = async (req, res, next) => {
+    try {
+        let params = req.body
+        params.id = req.params.id
+        const retorno = await statusService.patchStatus(params)
+        res.status(204).json(retorno)
+    } catch (err){
+        res.status(500).send(err.message);
+    }   
+}
+
+const deleteStatus = async (req, res, next) => {
+    try {
+        const retorno = await statusService.deleteStatus(req.params)
+        res.status(204).json(retorno)
+    } catch (err){
+        res.status(500).send(err.message);
+    }   
+}
+
 module.exports.getByTable = getByTable;
 module.exports.getById = getById;
 module.exports.postStatus = postStatus;
 module.exports.putStatus = putStatus;
+module.exports.patchStatus = patchStatus;
+module.exports.deleteStatus = deleteStatus;

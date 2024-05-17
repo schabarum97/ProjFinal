@@ -60,7 +60,58 @@ const putStatus = async(params) => {
     return await db.query(sql_put, [id, nome, tabela, dataini, datafim, cor])
   }
 
+
+const sql_patch = 
+  `update t_status 
+      set `
+
+const patchStatus = async (params) => {
+    let fields = ''
+    let binds = []
+    binds.push(params.id)
+    let countParams = 1
+    if (params.nome) {
+        countParams ++
+        fields += ` stt_nome = $${countParams} `
+        binds.push(params.nome)
+    }
+    if (params.tabela) {
+        countParams ++
+        fields += (fields?',':'') + ` stt_tabela = $${countParams} `
+        binds.push(params.tabela)
+    }
+    if (params.dataini) {
+        countParams ++
+        fields += (fields?',':'') + ` stt_dataini = $${countParams} `
+        binds.push(params.dataini)
+    }
+    if (params.datafim) {
+        countParams ++
+        fields += (fields?',':'') + ` stt_datafim = $${countParams} `
+        binds.push(params.datafim)
+    }
+    if (params.cor) {
+        countParams ++
+        fields += (fields?',':'') + ` stt_cor = $${countParams} `
+        binds.push(params.cor)
+    }
+    let sql = sql_patch + fields + ' where stt_id = $1 '
+    return await db.query(sql, binds)
+}
+
+
+const sql_delete =
+` delete from t_status
+   where stt_id = $1 `
+
+const deleteStatus = async(params) => {
+    const {id} = params
+    await db.query(sql_delete, [id])
+} 
+
 module.exports.getById = getById;
 module.exports.getByTable = getByTable;
 module.exports.postStatus = postStatus;
 module.exports.putStatus = putStatus;
+module.exports.patchStatus = patchStatus;
+module.exports.deleteStatus = deleteStatus;
