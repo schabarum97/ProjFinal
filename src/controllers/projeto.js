@@ -19,6 +19,39 @@ const postProjeto = async (req, res, next) => {
         res.status(500).send(err.message);
     }   
 }
+const putProjeto = async (req, res, next) => {
+    try {
+        let params = req.body
+        params.id = req.params.id
+        const retorno = await projetoService.putProjeto(params)
+        res.status(204).json(retorno)
+    } catch (err){
+        res.status(500).send(err.message);
+    }   
+}
+
+const patchProjeto = async (req, res, next) => {
+    try {
+        let params = req.body
+        params.id = req.params.id
+        const retorno = await projetoService.patchProjeto(params)
+        res.status(204).json(retorno)
+    } catch (err){
+        res.status(500).send(err.message);
+    }   
+}
+
+const deleteProjeto = async (req, res, next) => {
+    try {
+        const retorno = await projetoService.deleteProjeto(req.params)
+        res.status(204).json(retorno)
+    } catch (err){
+        res.status(500).send(err.message);
+    }   
+}
 
 module.exports.getById = getById;
 module.exports.postProjeto = postProjeto;
+module.exports.putProjeto = putProjeto;
+module.exports.patchProjeto = patchProjeto;
+module.exports.deleteProjeto = deleteProjeto;

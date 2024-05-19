@@ -1,14 +1,14 @@
 const db = require('../configs/pg');
 
 const sql_get = 
-    `select t_status.stt_id, 
+    `SELECT t_status.stt_id, 
             t_status.stt_nome,
             t_status.stt_tabela,
             t_status.stt_dataini,
             t_status.stt_datafim,
             t_status.stt_cor
-       from t_status
-      where t_status.stt_id = $1`;
+       FROM t_status
+      WHERE t_status.stt_id = $1`;
 
 const getById = async (id) => {
     let status = {};
@@ -19,14 +19,14 @@ const getById = async (id) => {
 };
 
 const sql_get_table = 
-    `select t_status.stt_id, 
+    `SELECT t_status.stt_id, 
             t_status.stt_nome,
             t_status.stt_tabela,
             t_status.stt_dataini,
             t_status.stt_datafim,
             t_status.stt_cor
-       from t_status
-      where t_status.stt_tabela = $1`;
+       FROM t_status
+      WHERE t_status.stt_tabela = $1`;
 
 const getByTable = async (table) => {
     let status = {};
@@ -37,23 +37,23 @@ const getByTable = async (table) => {
 };
 
 const sql_post = 
-`insert into t_status 
-        (stt_id, stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor)
- values ($1, $2, $3, $4, $5, $6) `
+`INSERT INTO t_status 
+        (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor)
+ VALUES ($1, $2, $3, $4, $5) `
 
  const postStatus = async (params) => {
-    const {id, nome, tabela, dataini, datafim, cor} = params
-    await db.query(sql_post, [id, nome, tabela, dataini, datafim, cor])
+    const {nome, tabela, dataini, datafim, cor} = params
+    await db.query(sql_post, [nome, tabela, dataini, datafim, cor])
   }
 
 const sql_put =
-` update t_status
-     set stt_nome = $2,
+` UPDATE t_status
+     SET stt_nome = $2,
          stt_tabela = $3,
          stt_dataini = $4,
          stt_datafim = $5,
          stt_cor = $6
-   where stt_id = $1`
+   WHERE stt_id = $1`
 
 const putStatus = async(params) => {
     const {id, nome, tabela, dataini, datafim, cor} = params
@@ -62,8 +62,8 @@ const putStatus = async(params) => {
 
 
 const sql_patch = 
-  `update t_status 
-      set `
+  `UPDATE t_status 
+      SET `
 
 const patchStatus = async (params) => {
     let fields = ''
@@ -101,8 +101,8 @@ const patchStatus = async (params) => {
 
 
 const sql_delete =
-` delete from t_status
-   where stt_id = $1 `
+` DELETE FROM t_status
+   WHERE stt_id = $1 `
 
 const deleteStatus = async(params) => {
     const {id} = params

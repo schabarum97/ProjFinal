@@ -73,17 +73,74 @@ stt_id int references t_status(stt_id), -- status
 constraint fk_funcionario_atividade unique (fun_id, atv_id)
 );
 
-INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
-('Ativo', 'A', '2024-01-01 00:00:00', '2024-12-31 23:59:59', '#00FF00');
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) 
+VALUES ('Em andamento', 'P', '2024-01-01', NULL, '#FFFF00');
 
-INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
-('Inativo', 'A', '2024-01-01 00:00:00', '2024-12-31 23:59:59', '#FF0000');
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) 
+VALUES ('Concluído', 'P', '2024-01-01', NULL, '#00FF00');
 
-INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
-('Pendente', 'B', '2024-02-01 00:00:00', '2024-12-31 23:59:59', '#FFFF00');
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) 
+VALUES ('Pendente', 'T', '2024-01-01', NULL, '#FF0000');
 
-INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
-('Concluído', 'B', '2024-03-01 00:00:00', '2024-12-31 23:59:59', '#0000FF');
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) 
+VALUES ('Em revisão', 'T', '2024-01-01', NULL, '#0000FF');
 
-INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) VALUES
-('Cancelado', 'C', '2024-01-01 00:00:00', '2024-12-31 23:59:59', '#FFA500');
+INSERT INTO t_status (stt_nome, stt_tabela, stt_dataini, stt_datafim, stt_cor) 
+VALUES ('Aguardando aprovação', 'A', '2024-01-01', NULL, '#FF00FF');
+
+INSERT INTO t_projeto (prj_nome, prj_descricao, prj_dataini, prj_datafim, stt_id) 
+VALUES ('Projeto A', 'Descrição do Projeto A', '2024-01-01', '2024-12-31', 1);
+
+INSERT INTO t_projeto (prj_nome, prj_descricao, prj_dataini, prj_datafim, stt_id) 
+VALUES ('Projeto B', 'Descrição do Projeto B', '2024-01-01', '2024-12-31', 2);
+
+INSERT INTO t_projeto (prj_nome, prj_descricao, prj_dataini, prj_datafim, stt_id) 
+VALUES ('Projeto C', 'Descrição do Projeto C', '2024-01-01', '2024-12-31', 1);
+
+INSERT INTO t_projeto (prj_nome, prj_descricao, prj_dataini, prj_datafim, stt_id) 
+VALUES ('Projeto D', 'Descrição do Projeto D', '2024-01-01', '2024-12-31', 3);
+
+INSERT INTO t_projeto (prj_nome, prj_descricao, prj_dataini, prj_datafim, stt_id) 
+VALUES ('Projeto E', 'Descrição do Projeto E', '2024-01-01', '2024-12-31', 1);
+
+INSERT INTO t_funcionario (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id) 
+VALUES ('João Silva', 'Desenvolvedor', 'joao.silva@example.com', '123456789', '123.456.789-00', 1);
+
+INSERT INTO t_funcionario (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id) 
+VALUES ('Maria Santos', 'Observador', 'maria.santos@example.com', '987654321', '987.654.321-00', 1);
+
+INSERT INTO t_funcionario (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id) 
+VALUES ('José Oliveira', 'Solicitante', 'jose.oliveira@example.com', '456789123', '456.789.123-00', 1);
+
+INSERT INTO t_funcionario (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id) 
+VALUES ('Ana Pereira', 'Desenvolvedor', 'ana.pereira@example.com', '789123456', '789.123.456-00', 1);
+
+INSERT INTO t_funcionario (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id) 
+VALUES ('Carlos Souza', 'Observador', 'carlos.souza@example.com', '321654987', '321.654.987-00', 1);
+
+INSERT INTO t_tarefas (tar_descricao, tar_dataini, tar_datafim, tar_horasTrab, stt_id, fun_id, prj_id) 
+VALUES ('Desenvolver funcionalidade X', '2024-01-01', '2024-01-10', '08:00:00', 3, 1, 1);
+
+INSERT INTO t_tarefas (tar_descricao, tar_dataini, tar_datafim, tar_horasTrab, stt_id, fun_id, prj_id) 
+VALUES ('Revisar documento de requisitos', '2024-01-05', '2024-01-07', '08:00:00', 4, 4, 2);
+
+INSERT INTO t_tarefas (tar_descricao, tar_dataini, tar_datafim, tar_horasTrab, stt_id, fun_id, prj_id) 
+VALUES ('Realizar testes de integração', '2024-01-10', '2024-01-15', '08:00:00', 3, 5, 3);
+
+INSERT INTO t_tarefas (tar_descricao, tar_dataini, tar_datafim, tar_horasTrab, stt_id, fun_id, prj_id) 
+VALUES ('Levantar requisitos para nova funcionalidade', '2024-01-03', '2024-01-08', '08:00:00', 3, 3, 4);
+
+INSERT INTO t_tarefas (tar_descricao, tar_dataini, tar_datafim, tar_horasTrab, stt_id, fun_id, prj_id) 
+VALUES ('Aprovar design de interface', '2024-01-02', '2024-01-03', '08:00:00', 5, 2, 5);
+
+INSERT INTO t_atividade (atv_descricao, atv_dataini, atv_datafim, atv_horasTrab, tar_id, stt_id) 
+VALUES ('Atualizar diagrama de classes', '2024-01-05', '2024-01-07', '10:00:00', 2, 4);
+
+INSERT INTO t_atividade (atv_descricao, atv_dataini, atv_datafim, atv_horasTrab, tar_id, stt_id) 
+VALUES ('Executar testes de integração', '2024-01-10', '2024-01-15', '20:00:00', 3, 3);
+
+INSERT INTO t_atividade (atv_descricao, atv_dataini, atv_datafim, atv_horasTrab, tar_id, stt_id) 
+VALUES ('Entrevistar usuários', '2024-01-03', '2024-01-08', '15:00:00', 4, 3);
+
+INSERT INTO t_atividade (atv_descricao, atv_dataini, atv_datafim, atv_horasTrab, tar_id, stt_id) 
+VALUES ('Analisar feedback de usabilidade', '2024-01-02', '2024-01-03', '5:00:00', 5, 5);

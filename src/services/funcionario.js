@@ -1,15 +1,15 @@
 const db = require('../configs/pg');
 
 const sql_get = 
-    `select t_funcionario.fun_id, 
+    `SELECT t_funcionario.fun_id, 
             t_funcionario.fun_nome,
             t_funcionario.fun_funcao,
             t_funcionario.fun_email,
             t_funcionario.fun_telefone,
             t_funcionario.fun_cpf,
             t_funcionario.stt_id
-       from t_funcionario
-      where t_funcionario.fun_id = $1`;
+       FROM t_funcionario
+      WHERE t_funcionario.fun_id = $1`;
 
 const getById = async (id) => {
     let funcionario = {};
@@ -20,24 +20,24 @@ const getById = async (id) => {
 };
 
 const sql_post = 
-`insert into t_funcionario 
-        (fun_id, fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id)
- values ($1, $2, $3, $4, $5, $6, $7) `
+`INSERT INTO t_funcionario 
+        (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id)
+ VALUES ($1, $2, $3, $4, $5, $6) `
 
  const postFuncionario = async (params) => {
-    const {id, nome, funcao, email, telefone, cpf, status} = params
-    await db.query(sql_post, [id, nome, funcao, email, telefone, cpf, status])
+    const {nome, funcao, email, telefone, cpf, status} = params
+    await db.query(sql_post, [nome, funcao, email, telefone, cpf, status])
 }
 
   const sql_put =
-  ` update t_funcionario
-       set fun_nome = $2,
+  ` UPDATE t_funcionario
+       SET fun_nome = $2,
            fun_funcao = $3,
            fun_email = $4,
            fun_telefone = $5,
            fun_cpf = $6,
            stt_id = $7
-     where fun_id = $1`
+     WHERE fun_id = $1`
   
 const putFuncionario = async(params) => {
       const {id, nome, funcao, email, telefone, cpf, status} = params
@@ -45,8 +45,8 @@ const putFuncionario = async(params) => {
 }
 
 const sql_patch = 
-  `update t_funcionario 
-      set `
+  `UPDATE t_funcionario 
+      SET `
 
 const patchFuncionario = async (params) => {
     let fields = ''
@@ -88,8 +88,8 @@ const patchFuncionario = async (params) => {
 }
 
 const sql_delete =
-` delete from t_funcionario
-   where fun_id = $1 `
+` DELETE FROM t_funcionario
+   WHERE fun_id = $1 `
 
 const deleteFuncionario = async(params) => {
     const {id} = params

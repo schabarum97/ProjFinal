@@ -4,11 +4,11 @@ const cript = require('../utils/salt')
 const fs = require('fs')
 
 const sql_get = 
-`select t_login.log_nome,
+`SELECT t_login.log_nome,
         t_login.log_salt, 
         t_login.log_pass
-   from t_login
-  where t_login.log_nome = $1 `
+   FROM t_login
+  WHERE t_login.log_nome = $1 `
 
   const login = async(params) => {
     const { user, pass } = params;
