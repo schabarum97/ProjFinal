@@ -1,0 +1,2689 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Trabalho Final",
+    "description": "Documentação da API do trabalho final"
+  },
+  "host": "localhost:3000",
+  "basePath": "",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "aplication/json"
+  ],
+  "produces": [
+    "aplication/json"
+  ],
+  "paths": {
+    "/status/id/{id}": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Consulta Status por ID",
+        "description": "Consulta os detalhes de um Status específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Status",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "status": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "stt_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "stt_nome": {
+                        "type": "string",
+                        "example": "Em andamento"
+                      },
+                      "stt_tabela": {
+                        "type": "string",
+                        "example": "P"
+                      },
+                      "stt_dataini": {
+                        "type": "string",
+                        "example": "2024-01-01T03:00:00.000Z"
+                      },
+                      "stt_datafim": {},
+                      "stt_cor": {
+                        "type": "string",
+                        "example": "#FFFF00"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Status não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/status/table/{table}": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Consulta Status por Tabela",
+        "description": "Consulta os detalhes de Status específicos por nome da tabela",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Nome da Tabela",
+            "example": "users"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "status": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "stt_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "stt_nome": {
+                        "type": "string",
+                        "example": "Em andamento"
+                      },
+                      "stt_tabela": {
+                        "type": "string",
+                        "example": "P"
+                      },
+                      "stt_dataini": {
+                        "type": "string",
+                        "example": "2024-01-01T03:00:00.000Z"
+                      },
+                      "stt_datafim": {},
+                      "stt_cor": {
+                        "type": "string",
+                        "example": "#FFFF00"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Tabela não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/status": {
+      "post": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Cria um novo Status",
+        "description": "Cria um novo Status no sistema",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "body",
+            "description": "Dados para criar um novo Status",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Teste"
+                },
+                "tabela": {
+                  "type": "string",
+                  "example": "P"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-05-16T00:00:00"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-12-31T23:59:59"
+                },
+                "cor": {
+                  "type": "string",
+                  "example": "#123456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Status criado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Status criado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar o Status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/status/{id}": {
+      "put": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Atualiza Status por ID",
+        "description": "Atualiza os detalhes de um Status específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Status",
+            "example": 1
+          },
+          {
+            "name": "status",
+            "in": "body",
+            "description": "Dados para atualizar o Status",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Teste"
+                },
+                "tabela": {
+                  "type": "string",
+                  "example": "P"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-05-16T00:00:00"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-12-31T23:59:59"
+                },
+                "cor": {
+                  "type": "string",
+                  "example": "#123456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Status atualizado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Status não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar o Status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Atualiza parcialmente Status por ID",
+        "description": "Atualiza parcialmente os detalhes de um Status específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Status",
+            "example": 1
+          },
+          {
+            "name": "status",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente o Status",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Teste"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Status atualizado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Status não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar o Status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Deleta Status por ID",
+        "description": "Deleta um Status específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Status",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status deletado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Status deletado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Status não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar o Status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tarefa/id/{id}": {
+      "get": {
+        "tags": [
+          "Tarefa"
+        ],
+        "summary": "Consulta Tarefa por ID",
+        "description": "Consulta os detalhes de uma Tarefa específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Tarefa",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "tarefa": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "tar_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "tar_descricao": {
+                        "type": "string",
+                        "example": "Desenvolver funcionalidade X"
+                      },
+                      "tar_dataini": {
+                        "type": "string",
+                        "example": "2024-01-01T03:00:00.000Z"
+                      },
+                      "tar_datafim": {
+                        "type": "string",
+                        "example": "2024-01-10T03:00:00.000Z"
+                      },
+                      "tar_horastrab": {
+                        "type": "string",
+                        "example": "08:00:00"
+                      },
+                      "stt_id": {
+                        "type": "number",
+                        "example": 3
+                      },
+                      "fun_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "prj_id": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Tarefa não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/tarefa": {
+      "post": {
+        "tags": [
+          "Tarefa"
+        ],
+        "summary": "Cria uma nova Tarefa",
+        "description": "Cria uma nova Tarefa no sistema",
+        "parameters": [
+          {
+            "name": "tarefa",
+            "in": "body",
+            "description": "Dados para criar uma nova Tarefa",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string",
+                  "example": "Desenvolver a API para integração com o sistema X"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-05-20T08:00:00Z"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-05-25T17:00:00Z"
+                },
+                "horasTrab": {
+                  "type": "string",
+                  "example": "08:00:00"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                },
+                "funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
+                "projeto": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Tarefa criada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Tarefa criada com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar a Tarefa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tarefa/{id}": {
+      "put": {
+        "tags": [
+          "Tarefa"
+        ],
+        "summary": "Atualiza Tarefa por ID",
+        "description": "Atualiza os detalhes de uma Tarefa específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Tarefa",
+            "example": 1
+          },
+          {
+            "name": "tarefa",
+            "in": "body",
+            "description": "Dados para atualizar a Tarefa",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string",
+                  "example": "Desenvolver a API para integração com o sistema X"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-05-20T08:00:00Z"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-05-25T17:00:00Z"
+                },
+                "horasTrab": {
+                  "type": "string",
+                  "example": "08:00:00"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                },
+                "funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
+                "projeto": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Tarefa atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Tarefa não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a Tarefa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Tarefa"
+        ],
+        "summary": "Atualiza parcialmente Tarefa por ID",
+        "description": "Atualiza parcialmente os detalhes de uma Tarefa específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Tarefa",
+            "example": 1
+          },
+          {
+            "name": "tarefa",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente a Tarefa",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string",
+                  "example": "Desenvolver a API para integração com o sistema X"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Tarefa atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Tarefa não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a Tarefa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tarefa"
+        ],
+        "summary": "Deleta Tarefa por ID",
+        "description": "Deleta uma Tarefa específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Tarefa",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa deletada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Tarefa deletada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Tarefa não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar a Tarefa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projeto/id/{id}": {
+      "get": {
+        "tags": [
+          "Projeto"
+        ],
+        "summary": "Consulta Projeto por ID",
+        "description": "Consulta os detalhes de um Projeto específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Projeto",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "projeto": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "prj_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "prj_nome": {
+                        "type": "string",
+                        "example": "Projeto A"
+                      },
+                      "prj_descricao": {
+                        "type": "string",
+                        "example": "Descrição do Projeto A"
+                      },
+                      "prj_dataini": {
+                        "type": "string",
+                        "example": "2024-01-01T03:00:00.000Z"
+                      },
+                      "prj_datafim": {
+                        "type": "string",
+                        "example": "2024-12-31T03:00:00.000Z"
+                      },
+                      "stt_id": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Projeto não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/projeto": {
+      "post": {
+        "tags": [
+          "Projeto"
+        ],
+        "summary": "Cria um novo Projeto",
+        "description": "Cria um novo Projeto no sistema",
+        "parameters": [
+          {
+            "name": "projeto",
+            "in": "body",
+            "description": "Dados para criar um novo Projeto",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Projeto A"
+                },
+                "descricao": {
+                  "type": "string",
+                  "example": "a"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-01-01"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-12-31"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Projeto criado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Projeto criado com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar o Projeto",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projeto/{id}": {
+      "put": {
+        "tags": [
+          "Projeto"
+        ],
+        "summary": "Atualiza Projeto por ID",
+        "description": "Atualiza os detalhes de um Projeto específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Projeto",
+            "example": 1
+          },
+          {
+            "name": "projeto",
+            "in": "body",
+            "description": "Dados para atualizar o Projeto",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Projeto B"
+                },
+                "descricao": {
+                  "type": "string",
+                  "example": "a"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-01-01"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-12-31"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projeto atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Projeto atualizado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Projeto não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar o Projeto",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Projeto"
+        ],
+        "summary": "Atualiza parcialmente Projeto por ID",
+        "description": "Atualiza parcialmente os detalhes de um Projeto específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Projeto",
+            "example": 1
+          },
+          {
+            "name": "projeto",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente o Projeto",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Projeto B"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projeto atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Projeto atualizado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Projeto não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar o Projeto",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Projeto"
+        ],
+        "summary": "Deleta Projeto por ID",
+        "description": "Deleta um Projeto específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Projeto",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projeto deletado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Projeto deletado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Projeto não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar o Projeto",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/atividade/id/{id}": {
+      "get": {
+        "tags": [
+          "Atividade"
+        ],
+        "summary": "Consulta Atividade por ID",
+        "description": "Consulta os detalhes de uma Atividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Atividade",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "atividade": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "atv_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "atv_descricao": {
+                        "type": "string",
+                        "example": "Atualizar diagrama de classes"
+                      },
+                      "atv_dataini": {
+                        "type": "string",
+                        "example": "2024-01-05T03:00:00.000Z"
+                      },
+                      "atv_datafim": {
+                        "type": "string",
+                        "example": "2024-01-07T03:00:00.000Z"
+                      },
+                      "atv_horastrab": {
+                        "type": "string",
+                        "example": "10:00:00"
+                      },
+                      "tar_id": {
+                        "type": "number",
+                        "example": 2
+                      },
+                      "stt_id": {
+                        "type": "number",
+                        "example": 4
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Atividade não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/atividade": {
+      "post": {
+        "tags": [
+          "Atividade"
+        ],
+        "summary": "Cria uma nova Atividade",
+        "description": "Cria uma nova Atividade no sistema",
+        "parameters": [
+          {
+            "name": "atividade",
+            "in": "body",
+            "description": "Dados para criar uma nova Atividade",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string",
+                  "example": "Revisar código e implementar melhorias"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-05-20"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-05-21"
+                },
+                "horasTrab": {
+                  "type": "string",
+                  "example": "08:00:00"
+                },
+                "tarefa": {
+                  "type": "number",
+                  "example": 1
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Atividade criada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Atividade criada com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar a Atividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/atividade/{id}": {
+      "put": {
+        "tags": [
+          "Atividade"
+        ],
+        "summary": "Atualiza Atividade por ID",
+        "description": "Atualiza os detalhes de uma Atividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Atividade",
+            "example": 1
+          },
+          {
+            "name": "atividade",
+            "in": "body",
+            "description": "Dados para atualizar a Atividade",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string",
+                  "example": "Revisar código e implementar melhorias"
+                },
+                "dataini": {
+                  "type": "string",
+                  "example": "2024-05-20"
+                },
+                "datafim": {
+                  "type": "string",
+                  "example": "2024-05-21"
+                },
+                "horasTrab": {
+                  "type": "string",
+                  "example": "08:00:00"
+                },
+                "tarefa": {
+                  "type": "number",
+                  "example": 123
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Atividade atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Atividade atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Atividade não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a Atividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Atividade"
+        ],
+        "summary": "Atualiza parcialmente Atividade por ID",
+        "description": "Atualiza parcialmente os detalhes de uma Atividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Atividade",
+            "example": 1
+          },
+          {
+            "name": "atividade",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente a Atividade",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string",
+                  "example": "Revisar código e implementar melhorias"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Atividade atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Atividade atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Atividade não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a Atividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Atividade"
+        ],
+        "summary": "Deleta Atividade por ID",
+        "description": "Deleta uma Atividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da Atividade",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Atividade deletada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Atividade deletada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Atividade não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar a Atividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "summary": "Login de usuário",
+        "description": "Realiza o login de um usuário no sistema",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "Credenciais de login",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "nome_de_usuario"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "senha_do_usuario"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Login bem-sucedido!"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "token_gerado"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "401": {
+            "description": "Credenciais inválidas",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Credenciais inválidas!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro no servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/funcionario/id/{id}": {
+      "get": {
+        "tags": [
+          "Funcionário"
+        ],
+        "summary": "Consulta Funcionário por ID",
+        "description": "Consulta os detalhes de um Funcionário específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Funcionário",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "funcionario": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fun_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "fun_nome": {
+                        "type": "string",
+                        "example": "João Silva"
+                      },
+                      "fun_funcao": {
+                        "type": "string",
+                        "example": "Desenvolvedor"
+                      },
+                      "fun_email": {
+                        "type": "string",
+                        "example": "joao.silva@example.com"
+                      },
+                      "fun_telefone": {
+                        "type": "string",
+                        "example": "123456789"
+                      },
+                      "fun_cpf": {
+                        "type": "string",
+                        "example": "123.456.789-00"
+                      },
+                      "stt_id": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/funcionario": {
+      "post": {
+        "tags": [
+          "Funcionário"
+        ],
+        "summary": "Cria um novo Funcionário",
+        "description": "Cria um novo Funcionário no sistema",
+        "parameters": [
+          {
+            "name": "funcionario",
+            "in": "body",
+            "description": "Dados para criar um novo Funcionário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "João Silvaa"
+                },
+                "funcao": {
+                  "type": "string",
+                  "example": "Desenvolvedor"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "joao.silva@example.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "11987654321"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "12345678901"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Funcionário criado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Funcionário criado com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar o Funcionário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/funcionario/{id}": {
+      "put": {
+        "tags": [
+          "Funcionário"
+        ],
+        "summary": "Atualiza Funcionário por ID",
+        "description": "Atualiza os detalhes de um Funcionário específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Funcionário",
+            "example": 1
+          },
+          {
+            "name": "funcionario",
+            "in": "body",
+            "description": "Dados para atualizar o Funcionário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "João Silvaa"
+                },
+                "funcao": {
+                  "type": "string",
+                  "example": "Desenvolvedor"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "joao.silva@example.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "11987654321"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "12345678901"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Funcionário atualizado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar o Funcionário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Funcionário"
+        ],
+        "summary": "Atualiza parcialmente Funcionário por ID",
+        "description": "Atualiza parcialmente os detalhes de um Funcionário específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Funcionário",
+            "example": 1
+          },
+          {
+            "name": "funcionario",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente o Funcionário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "João Silvaa"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Funcionário atualizado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar o Funcionário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Funcionário"
+        ],
+        "summary": "Deleta Funcionário por ID",
+        "description": "Deleta um Funcionário específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do Funcionário",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário deletado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Funcionário deletado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar o Funcionário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/funcionarioAtividade/id/{id}": {
+      "get": {
+        "tags": [
+          "FuncionárioAtividade"
+        ],
+        "summary": "Consulta FuncionárioAtividade por ID",
+        "description": "Consulta os detalhes de uma relação FuncionárioAtividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação FuncionárioAtividade",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "id_funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
+                "id_atividade": {
+                  "type": "number",
+                  "example": 1
+                },
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 8
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Relação FuncionárioAtividade não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/funcionarioAtividade": {
+      "post": {
+        "tags": [
+          "FuncionárioAtividade"
+        ],
+        "summary": "Cria uma nova relação FuncionárioAtividade",
+        "description": "Cria uma nova relação FuncionárioAtividade no sistema",
+        "parameters": [
+          {
+            "name": "funcionarioAtividade",
+            "in": "body",
+            "description": "Dados para criar uma nova relação FuncionárioAtividade",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
+                "id_atividade": {
+                  "type": "number",
+                  "example": 1
+                },
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 8
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Relação FuncionárioAtividade criada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação FuncionárioAtividade criada com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar a relação FuncionárioAtividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/funcionarioAtividade/{id}": {
+      "put": {
+        "tags": [
+          "FuncionárioAtividade"
+        ],
+        "summary": "Atualiza relação FuncionárioAtividade por ID",
+        "description": "Atualiza os detalhes de uma relação FuncionárioAtividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação FuncionárioAtividade",
+            "example": 1
+          },
+          {
+            "name": "funcionarioAtividade",
+            "in": "body",
+            "description": "Dados para atualizar a relação FuncionárioAtividade",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 6
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relação FuncionárioAtividade atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação FuncionárioAtividade atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Relação FuncionárioAtividade não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a relação FuncionárioAtividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "FuncionárioAtividade"
+        ],
+        "summary": "Atualiza parcialmente relação FuncionárioAtividade por ID",
+        "description": "Atualiza parcialmente os detalhes de uma relação FuncionárioAtividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação FuncionárioAtividade",
+            "example": 1
+          },
+          {
+            "name": "funcionarioAtividade",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente a relação FuncionárioAtividade",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 6
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relação FuncionárioAtividade atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação FuncionárioAtividade atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Relação FuncionárioAtividade não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a relação FuncionárioAtividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "FuncionárioAtividade"
+        ],
+        "summary": "Deleta relação FuncionárioAtividade por ID",
+        "description": "Deleta uma relação FuncionárioAtividade específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação FuncionárioAtividade",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relação FuncionárioAtividade deletada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação FuncionárioAtividade deletada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Relação FuncionárioAtividade não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar a relação FuncionárioAtividade",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projetoFuncionario/id/{id}": {
+      "get": {
+        "tags": [
+          "ProjetoFuncionario"
+        ],
+        "summary": "Consulta ProjetoFuncionario por ID",
+        "description": "Consulta os detalhes de uma relação ProjetoFuncionario específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação ProjetoFuncionario",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "id_projeto": {
+                  "type": "number",
+                  "example": 1
+                },
+                "id_funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 40
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Relação ProjetoFuncionario não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/projetoFuncionario": {
+      "post": {
+        "tags": [
+          "ProjetoFuncionario"
+        ],
+        "summary": "Cria uma nova relação ProjetoFuncionario",
+        "description": "Cria uma nova relação ProjetoFuncionario no sistema",
+        "parameters": [
+          {
+            "name": "projetoFuncionario",
+            "in": "body",
+            "description": "Dados para criar uma nova relação ProjetoFuncionario",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_projeto": {
+                  "type": "number",
+                  "example": 1
+                },
+                "id_funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 40
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Relação ProjetoFuncionario criada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação ProjetoFuncionario criada com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar a relação ProjetoFuncionario",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projetoFuncionario/{id}": {
+      "put": {
+        "tags": [
+          "ProjetoFuncionario"
+        ],
+        "summary": "Atualiza relação ProjetoFuncionario por ID",
+        "description": "Atualiza os detalhes de uma relação ProjetoFuncionario específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação ProjetoFuncionario",
+            "example": 1
+          },
+          {
+            "name": "projetoFuncionario",
+            "in": "body",
+            "description": "Dados para atualizar a relação ProjetoFuncionario",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 36
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relação ProjetoFuncionario atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação ProjetoFuncionario atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Relação ProjetoFuncionario não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a relação ProjetoFuncionario",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "ProjetoFuncionario"
+        ],
+        "summary": "Atualiza parcialmente relação ProjetoFuncionario por ID",
+        "description": "Atualiza parcialmente os detalhes de uma relação ProjetoFuncionario específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação ProjetoFuncionario",
+            "example": 1
+          },
+          {
+            "name": "projetoFuncionario",
+            "in": "body",
+            "description": "Dados para atualizar parcialmente a relação ProjetoFuncionario",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "horas_trabalhadas": {
+                  "type": "number",
+                  "example": 36
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relação ProjetoFuncionario atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação ProjetoFuncionario atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Relação ProjetoFuncionario não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a relação ProjetoFuncionario",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProjetoFuncionario"
+        ],
+        "summary": "Deleta relação ProjetoFuncionario",
+        "description": "Deleta uma relação ProjetoFuncionario específica pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da relação ProjetoFuncionario",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Relação ProjetoFuncionario deletada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Relação ProjetoFuncionario deletada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Relação ProjetoFuncionario não encontrada"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar a relação ProjetoFuncionario",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
