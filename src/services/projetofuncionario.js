@@ -2,76 +2,108 @@ const db = require('../configs/pg');
 
 const sql_get = `
     SELECT prj_fun_id, prj_id, tar_id, stt_id 
-      FROM l_projeto_funcionario 
-     WHERE prj_fun_id = $1`;
+    FROM l_projeto_funcionario 
+    WHERE prj_fun_id = $1`;
 
 const getById = async (id) => {
-    let projetoFuncionario = {};
-    await db.query(sql_get, [id])
-        .then(ret => projetoFuncionario = { total: ret.rows.length, projetoFuncionario: ret.rows })
-        .catch(err => projetoFuncionario = err.stack);
-    return projetoFuncionario;
+    try {
+        const ret = await db.query(sql_get, [id]);
+        if (ret.rows.length === 0) {
+            throw new Error('Relação ProjetoFuncionario não encontrada');
+        }
+        return { total: ret.rows.length, projetoFuncionario: ret.rows };
+    } catch (err) {
+        throw new Error(err.message);
+    }
 };
 
 const sql_post = `
     INSERT INTO l_projeto_funcionario (prj_id, tar_id, stt_id) 
-    VALUES ($1, $2, $3)`;
+    VALUES ($1, $2, $3) RETURNING prj_fun_id`;
 
 const postProjetoFuncionario = async (params) => {
-    const { projeto, tarefa, status } = params;
-    await db.query(sql_post, [projeto, tarefa, status]);
+    try {
+        const { projeto, tarefa, status } = params;
+        const ret = await db.query(sql_post, [projeto, tarefa, status]);
+        return { mensagem: 'Relação ProjetoFuncionario criada com sucesso!', id: ret.rows[0].prj_fun_id };
+    } catch (err) {
+        throw new Error('Erro ao tentar criar a relação ProjetoFuncionario');
+    }
 };
 
 const sql_put = `
     UPDATE l_projeto_funcionario 
-       SET prj_id = $2, 
-           tar_id = $3, 
-           stt_id = $4 
-     WHERE prj_fun_id = $1`;
+    SET prj_id = $2, 
+        tar_id = $3, 
+        stt_id = $4 
+    WHERE prj_fun_id = $1`;
 
 const putProjetoFuncionario = async (params) => {
-    const { id, projeto, tarefa, status } = params;
-    return await db.query(sql_put, [id, projeto, tarefa, status]);
+    try {
+        const { id, projeto, tarefa, status } = params;
+        const ret = await db.query(sql_put, [id, projeto, tarefa, status]);
+        if (ret.rowCount === 0) {
+            throw new Error('Relação ProjetoFuncionario não encontrada');
+        }
+        return { mensagem: 'Relação ProjetoFuncionario atualizada com sucesso!' };
+    } catch (err) {
+        throw new Error(err.message);
+    }
 };
 
 const sql_patch = 
-   `UPDATE l_projeto_funcionario 
-       SET `;
+    `UPDATE l_projeto_funcionario 
+    SET `;
 
 const patchProjetoFuncionario = async (params) => {
-    let fields = '';
-    let binds = [];
-    binds.push(params.id);
-    let countParams = 1;
-    
-    if (params.projeto) {
-        countParams++;
-        fields += ` prj_id = $${countParams} `;
-        binds.push(params.projeto);
-    }
-    if (params.tarefa) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` tar_id = $${countParams} `;
-        binds.push(params.tarefa);
-    }
-    if (params.status) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` stt_id = $${countParams} `;
-        binds.push(params.status);
-    }
+    try {
+        let fields = '';
+        let binds = [];
+        binds.push(params.id);
+        let countParams = 1;
+        
+        if (params.projeto) {
+            countParams++;
+            fields += ` prj_id = $${countParams} `;
+            binds.push(params.projeto);
+        }
+        if (params.tarefa) {
+            countParams++;
+            fields += (fields ? ',' : '') + ` tar_id = $${countParams} `;
+            binds.push(params.tarefa);
+        }
+        if (params.status) {
+            countParams++;
+            fields += (fields ? ',' : '') + ` stt_id = $${countParams} `;
+            binds.push(params.status);
+        }
 
-    let sql = sql_patch + fields + ' WHERE prj_fun_id = $1 ';
-    return await db.query(sql, binds);
+        let sql = sql_patch + fields + ' WHERE prj_fun_id = $1 ';
+        const ret = await db.query(sql, binds);
+        if (ret.rowCount === 0) {
+            throw new Error('Relação ProjetoFuncionario não encontrada');
+        }
+        return { mensagem: 'Relação ProjetoFuncionario atualizada com sucesso!' };
+    } catch (err) {
+        throw new Error(err.message);
+    }
 };
 
-// Serviço para deletar uma relação projeto-funcionário
 const sql_delete = 
     `DELETE FROM l_projeto_funcionario 
-      WHERE prj_fun_id = $1`;
+    WHERE prj_fun_id = $1`;
 
 const deleteProjetoFuncionario = async (params) => {
-    const { id } = params;
-    await db.query(sql_delete, [id]);
+    try {
+        const { id } = params;
+        const ret = await db.query(sql_delete, [id]);
+        if (ret.rowCount === 0) {
+            throw new Error('Relação ProjetoFuncionario não encontrada');
+        }
+        return { mensagem: 'Relação ProjetoFuncionario deletada com sucesso!' };
+    } catch (err) {
+        throw new Error('Erro ao tentar deletar a relação ProjetoFuncionario');
+    }
 };
 
 module.exports.getById = getById;

@@ -18,11 +18,16 @@ module.exports = (app) => {
 
         #swagger.responses[200] = {
             description: 'Sucesso!',
-            schema: {
-                id: 1,
-                id_funcionario: 1,
-                id_atividade: 1,
-                horas_trabalhadas: 8
+                schema:{
+                "total": 1,
+                "funcionarioAtividade": [
+                    {
+                    "fun_atv_id": 1,
+                    "fun_id": 1,
+                    "atv_id": 1,
+                    "stt_id": 1
+                    }
+                ]
             }
         }
         #swagger.responses[404] = {
@@ -41,9 +46,9 @@ module.exports = (app) => {
             description: 'Dados para criar uma nova relação FuncionárioAtividade',
             required: true,
             schema: {
-                id_funcionario: 1,
-                id_atividade: 1,
-                horas_trabalhadas: 8
+                "funcionario": 1,
+                "atividade": 1,
+                "status": 1
             }
         }
         #swagger.responses[201] = {
@@ -81,7 +86,7 @@ module.exports = (app) => {
             description: 'Dados para atualizar a relação FuncionárioAtividade',
             required: true,
             schema: {
-                horas_trabalhadas: 6
+                "atividade": 1
             }
         }
 
@@ -122,7 +127,7 @@ module.exports = (app) => {
             description: 'Dados para atualizar parcialmente a relação FuncionárioAtividade',
             required: true,
             schema: {
-                horas_trabalhadas: 6
+                "atividade": 1
             }
         }
 

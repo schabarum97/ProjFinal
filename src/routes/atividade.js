@@ -40,6 +40,9 @@ module.exports = (app) => {
         #swagger.responses[404] = {
             description: 'Atividade não encontrada'
         }
+        #swagger.responses[500] = {
+            description: 'Erro interno ao tentar fazer a busca'
+        }
     */
   );
 

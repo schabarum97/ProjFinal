@@ -6,49 +6,65 @@ const getById = async (req, res, next) => {
         const retorno = await projetoService.getById(id);
         res.status(200).json(retorno);
     } catch (err) {
-        res.status(500).send(err.message);
+        if (err.message === 'Projeto não encontrado') {
+            res.status(404).send(err.message);
+        } else {
+            res.status(500).send(err.message);
+        }
     }
 };
 
 const postProjeto = async (req, res, next) => {
     try {
-        const retorno = await projetoService.postProjeto(req.body)
-        res.status(201).json(retorno)
-    } catch (err){
-        console.log(req.body);
+        const retorno = await projetoService.postProjeto(req.body);
+        res.status(201).json(retorno);
+    } catch (err) {
         res.status(500).send(err.message);
-    }   
-}
+    }
+};
+
 const putProjeto = async (req, res, next) => {
     try {
-        let params = req.body
-        params.id = req.params.id
-        const retorno = await projetoService.putProjeto(params)
-        res.status(204).json(retorno)
-    } catch (err){
-        res.status(500).send(err.message);
-    }   
-}
+        let params = req.body;
+        params.id = req.params.id;
+        const retorno = await projetoService.putProjeto(params);
+        res.status(200).json(retorno);
+    } catch (err) {
+        if (err.message === 'Projeto não encontrado') {
+            res.status(404).send(err.message);
+        } else {
+            res.status(500).send(err.message);
+        }
+    }
+};
 
 const patchProjeto = async (req, res, next) => {
     try {
-        let params = req.body
-        params.id = req.params.id
-        const retorno = await projetoService.patchProjeto(params)
-        res.status(204).json(retorno)
-    } catch (err){
-        res.status(500).send(err.message);
-    }   
-}
+        let params = req.body;
+        params.id = req.params.id;
+        const retorno = await projetoService.patchProjeto(params);
+        res.status(200).json(retorno);
+    } catch (err) {
+        if (err.message === 'Projeto não encontrado') {
+            res.status(404).send(err.message);
+        } else {
+            res.status(500).send(err.message);
+        }
+    }
+};
 
 const deleteProjeto = async (req, res, next) => {
     try {
-        const retorno = await projetoService.deleteProjeto(req.params)
-        res.status(204).json(retorno)
-    } catch (err){
-        res.status(500).send(err.message);
-    }   
-}
+        const retorno = await projetoService.deleteProjeto(req.params);
+        res.status(200).json(retorno);
+    } catch (err) {
+        if (err.message === 'Projeto não encontrado') {
+            res.status(404).send(err.message);
+        } else {
+            res.status(500).send(err.message);
+        }
+    }
+};
 
 module.exports.getById = getById;
 module.exports.postProjeto = postProjeto;

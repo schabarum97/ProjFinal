@@ -6,20 +6,23 @@ const sql_get = `
     WHERE fun_atv_id = $1`;
 
 const getById = async (id) => {
-    let funcionarioAtividade = {};
-    await db.query(sql_get, [id])
-        .then(ret => funcionarioAtividade = { total: ret.rows.length, funcionarioAtividade: ret.rows })
-        .catch(err => funcionarioAtividade = err.stack);
-    return funcionarioAtividade;
+    const result = await db.query(sql_get, [id]);
+    if (result.rows.length === 0) {
+        const error = new Error('Relação FuncionárioAtividade não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { total: result.rows.length, funcionarioAtividade: result.rows };
 };
 
 const sql_post = `
     INSERT INTO l_funcionario_atividade (fun_id, atv_id, stt_id) 
-    VALUES ($1, $2, $3)`;
+    VALUES ($1, $2, $3) RETURNING fun_atv_id`;
 
 const postFuncionarioAtividade = async (params) => {
     const { funcionario, atividade, status } = params;
-    await db.query(sql_post, [funcionario, atividade, status]);
+    const result = await db.query(sql_post, [funcionario, atividade, status]);
+    return { mensagem: 'Relação FuncionárioAtividade criada com sucesso!', id: result.rows[0].fun_atv_id };
 };
 
 const sql_put = `
@@ -31,11 +34,17 @@ const sql_put = `
 
 const putFuncionarioAtividade = async (params) => {
     const { id, funcionario, atividade, status } = params;
-    return await db.query(sql_put, [id, funcionario, atividade, status]);
+    const result = await db.query(sql_put, [id, funcionario, atividade, status]);
+    if (result.rowCount === 0) {
+        const error = new Error('Relação FuncionárioAtividade não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { mensagem: 'Relação FuncionárioAtividade atualizada com sucesso!' };
 };
 
-const sql_patch = 
-   `UPDATE l_funcionario_atividade 
+const sql_patch = `
+    UPDATE l_funcionario_atividade 
        SET `;
 
 const patchFuncionarioAtividade = async (params) => {
@@ -61,16 +70,28 @@ const patchFuncionarioAtividade = async (params) => {
     }
 
     let sql = sql_patch + fields + ' WHERE fun_atv_id = $1 ';
-    return await db.query(sql, binds);
+    const result = await db.query(sql, binds);
+    if (result.rowCount === 0) {
+        const error = new Error('Relação FuncionárioAtividade não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { mensagem: 'Relação FuncionárioAtividade atualizada com sucesso!' };
 };
 
-const sql_delete = 
-   `DELETE FROM l_funcionario_atividade 
+const sql_delete = `
+    DELETE FROM l_funcionario_atividade 
      WHERE fun_atv_id = $1`;
 
 const deleteFuncionarioAtividade = async (params) => {
     const { id } = params;
-    await db.query(sql_delete, [id]);
+    const result = await db.query(sql_delete, [id]);
+    if (result.rowCount === 0) {
+        const error = new Error('Relação FuncionárioAtividade não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { mensagem: 'Relação FuncionárioAtividade deletada com sucesso!' };
 };
 
 module.exports.getById = getById;

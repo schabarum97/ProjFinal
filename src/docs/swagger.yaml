@@ -297,9 +297,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Status não encontrado"
           },
@@ -367,9 +364,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Status não encontrado"
           },
@@ -421,9 +415,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Status não encontrado"
@@ -686,9 +677,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Tarefa não encontrada"
           },
@@ -756,9 +744,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Tarefa não encontrada"
           },
@@ -810,9 +795,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Tarefa não encontrada"
@@ -1051,9 +1033,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Projeto não encontrado"
           },
@@ -1121,9 +1100,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Projeto não encontrado"
           },
@@ -1175,9 +1151,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Projeto não encontrado"
@@ -1273,7 +1246,7 @@
             "description": "Atividade não encontrada"
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro interno ao tentar fazer a busca"
           }
         }
       }
@@ -1428,9 +1401,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Atividade não encontrada"
           },
@@ -1498,9 +1468,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Atividade não encontrada"
           },
@@ -1552,9 +1519,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Atividade não encontrada"
@@ -1897,9 +1861,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Funcionário não encontrado"
           },
@@ -1967,9 +1928,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Funcionário não encontrado"
           },
@@ -2022,9 +1980,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Funcionário não encontrado"
           },
@@ -2069,21 +2024,33 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "total": {
                   "type": "number",
                   "example": 1
                 },
-                "id_funcionario": {
-                  "type": "number",
-                  "example": 1
-                },
-                "id_atividade": {
-                  "type": "number",
-                  "example": 1
-                },
-                "horas_trabalhadas": {
-                  "type": "number",
-                  "example": 8
+                "funcionarioAtividade": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fun_atv_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "fun_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "atv_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "stt_id": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  }
                 }
               },
               "xml": {
@@ -2116,17 +2083,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id_funcionario": {
+                "funcionario": {
                   "type": "number",
                   "example": 1
                 },
-                "id_atividade": {
+                "atividade": {
                   "type": "number",
                   "example": 1
                 },
-                "horas_trabalhadas": {
+                "status": {
                   "type": "number",
-                  "example": 8
+                  "example": 1
                 }
               }
             }
@@ -2194,9 +2161,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "horas_trabalhadas": {
+                "atividade": {
                   "type": "number",
-                  "example": 6
+                  "example": 1
                 }
               }
             }
@@ -2217,9 +2184,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Relação FuncionárioAtividade não encontrada"
@@ -2264,9 +2228,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "horas_trabalhadas": {
+                "atividade": {
                   "type": "number",
-                  "example": 6
+                  "example": 1
                 }
               }
             }
@@ -2287,9 +2251,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Relação FuncionárioAtividade não encontrada"
@@ -2343,9 +2304,6 @@
               }
             }
           },
-          "204": {
-            "description": "Nenhum Conteúdo"
-          },
           "404": {
             "description": "Relação FuncionárioAtividade não encontrada"
           },
@@ -2390,21 +2348,24 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "total": {
                   "type": "number",
                   "example": 1
                 },
-                "id_projeto": {
-                  "type": "number",
-                  "example": 1
-                },
-                "id_funcionario": {
-                  "type": "number",
-                  "example": 1
-                },
-                "horas_trabalhadas": {
-                  "type": "number",
-                  "example": 40
+                "projetoFuncionario": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "prj_fun_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "prj_id": {},
+                      "tar_id": {},
+                      "stt_id": {}
+                    }
+                  }
                 }
               },
               "xml": {
@@ -2437,17 +2398,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id_projeto": {
+                "projeto": {
                   "type": "number",
                   "example": 1
                 },
-                "id_funcionario": {
+                "tarefa": {
                   "type": "number",
                   "example": 1
                 },
-                "horas_trabalhadas": {
+                "status": {
                   "type": "number",
-                  "example": 40
+                  "example": 1
                 }
               }
             }
@@ -2515,9 +2476,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "horas_trabalhadas": {
+                "status": {
                   "type": "number",
-                  "example": 36
+                  "example": 1
                 }
               }
             }
@@ -2538,9 +2499,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Relação ProjetoFuncionario não encontrada"
@@ -2585,9 +2543,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "horas_trabalhadas": {
+                "status": {
                   "type": "number",
-                  "example": 36
+                  "example": 1
                 }
               }
             }
@@ -2608,9 +2566,6 @@
                 "name": "main"
               }
             }
-          },
-          "204": {
-            "description": "Nenhum Conteúdo"
           },
           "404": {
             "description": "Relação ProjetoFuncionario não encontrada"

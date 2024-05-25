@@ -12,90 +12,133 @@ const sql_get =
       WHERE t_funcionario.fun_id = $1`;
 
 const getById = async (id) => {
-    let funcionario = {};
-    await db.query(sql_get, [id])
-        .then(ret => funcionario = { total: ret.rows.length, funcionario: ret.rows })
-        .catch(err => funcionario = err.stack);
-    return funcionario;
+    try {
+        const result = await db.query(sql_get, [id]);
+        if (result.rows.length === 0) {
+            throw new Error('NotFound');
+        }
+        return { total: result.rows.length, funcionario: result.rows };
+    } catch (err) {
+        if (err.message === 'NotFound') {
+            throw { status: 404, message: 'Funcionário não encontrado' };
+        }
+        throw { status: 500, message: 'Erro ao buscar funcionário' };
+    }
 };
 
 const sql_post = 
-`INSERT INTO t_funcionario 
-        (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id)
- VALUES ($1, $2, $3, $4, $5, $6) `
+    `INSERT INTO t_funcionario 
+            (fun_nome, fun_funcao, fun_email, fun_telefone, fun_cpf, stt_id)
+     VALUES ($1, $2, $3, $4, $5, $6) RETURNING fun_id`;
 
- const postFuncionario = async (params) => {
-    const {nome, funcao, email, telefone, cpf, status} = params
-    await db.query(sql_post, [nome, funcao, email, telefone, cpf, status])
-}
+const postFuncionario = async (params) => {
+    const { nome, funcao, email, telefone, cpf, status } = params;
+    try {
+        const result = await db.query(sql_post, [nome, funcao, email, telefone, cpf, status]);
+        return { mensagem: 'Funcionário criado com sucesso!', id: result.rows[0].fun_id };
+    } catch (err) {
+        throw { status: 500, message: 'Erro ao tentar criar o Funcionário' };
+    }
+};
 
-  const sql_put =
-  ` UPDATE t_funcionario
+const sql_put =
+    `UPDATE t_funcionario
        SET fun_nome = $2,
            fun_funcao = $3,
            fun_email = $4,
            fun_telefone = $5,
            fun_cpf = $6,
            stt_id = $7
-     WHERE fun_id = $1`
-  
-const putFuncionario = async(params) => {
-      const {id, nome, funcao, email, telefone, cpf, status} = params
-      return await db.query(sql_put, [id, nome, funcao, email, telefone, cpf, status])
-}
+     WHERE fun_id = $1`;
+
+const putFuncionario = async (params) => {
+    const { id, nome, funcao, email, telefone, cpf, status } = params;
+    try {
+        const result = await db.query(sql_put, [id, nome, funcao, email, telefone, cpf, status]);
+        if (result.rowCount === 0) {
+            throw new Error('NotFound');
+        }
+        return { mensagem: 'Funcionário atualizado com sucesso!' };
+    } catch (err) {
+        if (err.message === 'NotFound') {
+            throw { status: 404, message: 'Funcionário não encontrado' };
+        }
+        throw { status: 500, message: 'Erro ao tentar atualizar o Funcionário' };
+    }
+};
 
 const sql_patch = 
-  `UPDATE t_funcionario 
-      SET `
+    `UPDATE t_funcionario 
+        SET `;
 
 const patchFuncionario = async (params) => {
-    let fields = ''
-    let binds = []
-    binds.push(params.id)
-    let countParams = 1
+    let fields = '';
+    let binds = [params.id];
+    let countParams = 1;
     if (params.nome) {
-        countParams ++
-        fields += ` fun_nome = $${countParams} `
-        binds.push(params.nome)
+        countParams++;
+        fields += ` fun_nome = $${countParams} `;
+        binds.push(params.nome);
     }
     if (params.funcao) {
-        countParams ++
-        fields += (fields?',':'') + ` fun_funcao = $${countParams} `
-        binds.push(params.funcao)
+        countParams++;
+        fields += (fields ? ',' : '') + ` fun_funcao = $${countParams} `;
+        binds.push(params.funcao);
     }
     if (params.email) {
-        countParams ++
-        fields += (fields?',':'') + ` fun_email = $${countParams} `
-        binds.push(params.email)
+        countParams++;
+        fields += (fields ? ',' : '') + ` fun_email = $${countParams} `;
+        binds.push(params.email);
     }
     if (params.telefone) {
-        countParams ++
-        fields += (fields?',':'') + ` fun_telefone = $${countParams} `
-        binds.push(params.telefone)
+        countParams++;
+        fields += (fields ? ',' : '') + ` fun_telefone = $${countParams} `;
+        binds.push(params.telefone);
     }
     if (params.cpf) {
-        countParams ++
-        fields += (fields?',':'') + ` fun_cpf = $${countParams} `
-        binds.push(params.cpf)
+        countParams++;
+        fields += (fields ? ',' : '') + ` fun_cpf = $${countParams} `;
+        binds.push(params.cpf);
     }
     if (params.status) {
-        countParams ++
-        fields += (fields?',':'') + ` stt_id = $${countParams} `
-        binds.push(params.status)
+        countParams++;
+        fields += (fields ? ',' : '') + ` stt_id = $${countParams} `;
+        binds.push(params.status);
     }
-    let sql = sql_patch + fields + ' where fun_id = $1 '
-    return await db.query(sql, binds)
-}
+    let sql = sql_patch + fields + ' WHERE fun_id = $1';
+    try {
+        const result = await db.query(sql, binds);
+        if (result.rowCount === 0) {
+            throw new Error('NotFound');
+        }
+        return { mensagem: 'Funcionário atualizado com sucesso!' };
+    } catch (err) {
+        if (err.message === 'NotFound') {
+            throw { status: 404, message: 'Funcionário não encontrado' };
+        }
+        throw { status: 500, message: 'Erro ao tentar atualizar o Funcionário' };
+    }
+};
 
 const sql_delete =
-` DELETE FROM t_funcionario
-   WHERE fun_id = $1 `
+    `DELETE FROM t_funcionario
+     WHERE fun_id = $1`;
 
-const deleteFuncionario = async(params) => {
-    const {id} = params
-    await db.query(sql_delete, [id])
-} 
-
+const deleteFuncionario = async (params) => {
+    const { id } = params;
+    try {
+        const result = await db.query(sql_delete, [id]);
+        if (result.rowCount === 0) {
+            throw new Error('NotFound');
+        }
+        return { mensagem: 'Funcionário deletado com sucesso!' };
+    } catch (err) {
+        if (err.message === 'NotFound') {
+            throw { status: 404, message: 'Funcionário não encontrado' };
+        }
+        throw { status: 500, message: 'Erro ao tentar deletar o Funcionário' };
+    }
+};
 module.exports.getById = getById;
 module.exports.postFuncionario = postFuncionario;
 module.exports.putFuncionario = putFuncionario;

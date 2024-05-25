@@ -6,20 +6,23 @@ const sql_get = `
     WHERE tar_id = $1`;
 
 const getById = async (id) => {
-    let tarefa = {};
-    await db.query(sql_get, [id])
-        .then(ret => tarefa = { total: ret.rows.length, tarefa: ret.rows })
-        .catch(err => tarefa = err.stack);
-    return tarefa;
+    const result = await db.query(sql_get, [id]);
+    if (result.rows.length === 0) {
+        const error = new Error('Tarefa não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { total: result.rows.length, tarefa: result.rows };
 };
 
 const sql_post = `
     INSERT INTO t_tarefas (tar_descricao, tar_dataini, tar_datafim, tar_horasTrab, stt_id, fun_id, prj_id) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING tar_id`;
 
 const postTarefa = async (params) => {
     const { descricao, dataini, datafim, horasTrab, status, funcionario, projeto } = params;
-    await db.query(sql_post, [descricao, dataini, datafim, horasTrab, status, funcionario, projeto]);
+    const result = await db.query(sql_post, [descricao, dataini, datafim, horasTrab, status, funcionario, projeto]);
+    return { mensagem: 'Tarefa criada com sucesso!', id: result.rows[0].tar_id };
 };
 
 const sql_put = `
@@ -35,19 +38,22 @@ const sql_put = `
 
 const putTarefa = async (params) => {
     const { id, descricao, dataini, datafim, horasTrab, status, funcionario, projeto } = params;
-    return await db.query(sql_put, [id, descricao, dataini, datafim, horasTrab, status, funcionario, projeto]);
+    const result = await db.query(sql_put, [id, descricao, dataini, datafim, horasTrab, status, funcionario, projeto]);
+    if (result.rowCount === 0) {
+        const error = new Error('Tarefa não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { mensagem: 'Tarefa atualizada com sucesso!' };
 };
 
-const sql_patch = 
-   `UPDATE t_tarefas 
-       SET `;
+const sql_patch = `UPDATE t_tarefas SET `;
 
 const patchTarefa = async (params) => {
     let fields = '';
-    let binds = [];
-    binds.push(params.id);
+    let binds = [params.id];
     let countParams = 1;
-    
+
     if (params.descricao) {
         countParams++;
         fields += ` tar_descricao = $${countParams} `;
@@ -85,16 +91,26 @@ const patchTarefa = async (params) => {
     }
 
     let sql = sql_patch + fields + ' WHERE tar_id = $1 ';
-    return await db.query(sql, binds);
+    const result = await db.query(sql, binds);
+    if (result.rowCount === 0) {
+        const error = new Error('Tarefa não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { mensagem: 'Tarefa atualizada com sucesso!' };
 };
 
-const sql_delete = 
-   `DELETE FROM t_tarefas 
-     WHERE tar_id = $1`;
+const sql_delete = `DELETE FROM t_tarefas WHERE tar_id = $1`;
 
 const deleteTarefa = async (params) => {
     const { id } = params;
-    await db.query(sql_delete, [id]);
+    const result = await db.query(sql_delete, [id]);
+    if (result.rowCount === 0) {
+        const error = new Error('Tarefa não encontrada');
+        error.status = 404;
+        throw error;
+    }
+    return { mensagem: 'Tarefa deletada com sucesso!' };
 };
 
 module.exports.getById = getById;

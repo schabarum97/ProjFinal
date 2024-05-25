@@ -9,7 +9,7 @@ module.exports = (app) => {
         #swagger.summary = "Consulta ProjetoFuncionario por ID"
         
         #swagger.description = 'Consulta os detalhes de uma relação ProjetoFuncionario específica pelo ID'
-        
+
         #swagger.parameters['id'] = {
             description: 'ID da relação ProjetoFuncionario',
             in: 'path',
@@ -21,11 +21,16 @@ module.exports = (app) => {
 
         #swagger.responses[200] = {
             description: 'Sucesso!',
-            schema: {
-                id: 1,
-                id_projeto: 1,
-                id_funcionario: 1,
-                horas_trabalhadas: 40
+            schema:{
+                "total": 1,
+                "projetoFuncionario": [
+                    {
+                    "prj_fun_id": 1,
+                    "prj_id": null,
+                    "tar_id": null,
+                    "stt_id": null
+                    }
+                ]
             }
         }
         #swagger.responses[404] = {
@@ -44,9 +49,9 @@ module.exports = (app) => {
             description: 'Dados para criar uma nova relação ProjetoFuncionario',
             required: true,
             schema: {
-                id_projeto: 1,
-                id_funcionario: 1,
-                horas_trabalhadas: 40
+                "projeto": 1,
+                "tarefa": 1,
+                "status": 1
             }
         }
         #swagger.responses[201] = {
@@ -87,7 +92,7 @@ module.exports = (app) => {
             description: 'Dados para atualizar a relação ProjetoFuncionario',
             required: true,
             schema: {
-                horas_trabalhadas: 36
+                "status": 1
             }
         }
 
@@ -131,7 +136,7 @@ module.exports = (app) => {
             description: 'Dados para atualizar parcialmente a relação ProjetoFuncionario',
             required: true,
             schema: {
-                horas_trabalhadas: 36
+                "status": 1
             }
         }
 
