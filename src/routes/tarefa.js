@@ -199,7 +199,7 @@ module.exports = (app) => {
             example: 1    
         }
 
-        #swagger.responses[200] = {
+        #swagger.responses[204] = {
             description: 'Tarefa deletada',
             schema: {
                 mensagem: 'Tarefa deletada com sucesso!'

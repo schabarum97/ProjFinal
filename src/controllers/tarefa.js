@@ -56,7 +56,7 @@ const patchTarefa = async (req, res, next) => {
 const deleteTarefa = async (req, res, next) => {
     try {
         const retorno = await tarefaService.deleteTarefa(req.params);
-        res.status(200).json(retorno);
+        res.status(204).json(retorno);
     } catch (err) {
         if (err.status === 404) {
             res.status(404).send('Tarefa não encontrada');

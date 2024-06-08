@@ -23,4 +23,16 @@ const login = async (req, res, next) => {
     }
 }
 
+const sql_insert =
+` insert into t_login (log_nome, log_salt, log_pass)
+                values ($1, $2, $3)`
+
+const newUser = async(params) => {
+    const {user, pass} = params
+    const {salt, hashedPassword} = cript.criarUsuario(pass)
+    result = await db.query(sql_insert, [user, salt, hashedPassword])
+    return result
+}
+
+module.exports.newUser = newUser
 module.exports.login = login

@@ -56,7 +56,7 @@ const patchAtividade = async (req, res, next) => {
 const deleteAtividade = async (req, res, next) => {
     try {
         const retorno = await atividadeService.deleteAtividade(req.params);
-        res.status(200).json(retorno);
+        res.status(204).json(retorno);
     } catch (err) {
         if (err.message === 'Atividade não encontrada') {
             res.status(404).send(err.message);

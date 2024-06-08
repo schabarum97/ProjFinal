@@ -23,11 +23,12 @@ const sql_post = `
 
 const postProjetoFuncionario = async (params) => {
     try {
+        console.log(params)
         const { projeto, tarefa, status } = params;
         const ret = await db.query(sql_post, [projeto, tarefa, status]);
         return { mensagem: 'Relação ProjetoFuncionario criada com sucesso!', id: ret.rows[0].prj_fun_id };
     } catch (err) {
-        throw new Error('Erro ao tentar criar a relação ProjetoFuncionario');
+        throw new Error('Erro ao tentar criar a relação ProjetoFuncionario ' + err.message);
     }
 };
 
@@ -102,7 +103,7 @@ const deleteProjetoFuncionario = async (params) => {
         }
         return { mensagem: 'Relação ProjetoFuncionario deletada com sucesso!' };
     } catch (err) {
-        throw new Error('Erro ao tentar deletar a relação ProjetoFuncionario');
+        throw new Error('Erro ao tentar deletar a relação ProjetoFuncionario ' + err.message);
     }
 };
 

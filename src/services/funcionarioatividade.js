@@ -19,9 +19,11 @@ const sql_post = `
     INSERT INTO l_funcionario_atividade (fun_id, atv_id, stt_id) 
     VALUES ($1, $2, $3) RETURNING fun_atv_id`;
 
+    
 const postFuncionarioAtividade = async (params) => {
     const { funcionario, atividade, status } = params;
     const result = await db.query(sql_post, [funcionario, atividade, status]);
+    console.log(funcionario);
     return { mensagem: 'Relação FuncionárioAtividade criada com sucesso!', id: result.rows[0].fun_atv_id };
 };
 

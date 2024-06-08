@@ -56,7 +56,7 @@ const patchFuncionario = async (req, res, next) => {
 const deleteFuncionario = async (req, res, next) => {
     try {
         const retorno = await funcionarioService.deleteFuncionario(req.params);
-        res.status(200).json(retorno);
+        res.status(204).json(retorno);
     } catch (err) {
         if (err.message === 'Funcionário não encontrado') {
             res.status(404).send(err.message);

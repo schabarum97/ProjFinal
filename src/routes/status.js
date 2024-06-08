@@ -95,9 +95,10 @@ module.exports = (app) => {
             in: 'body',
             description: 'Dados para criar um novo Status',
             required: true,
-            schema: {
-                "nome": "Teste",
-                "tabela": "P",
+            schema: 
+            {
+                "nome": "96",
+                "tabela": "Z",
                 "dataini": "2024-05-16T00:00:00",
                 "datafim": "2024-12-31T23:59:59",
                 "cor": "#123456"
@@ -233,7 +234,7 @@ module.exports = (app) => {
             example: 1    
         }
 
-        #swagger.responses[200] = {
+        #swagger.responses[204] = {
             description: 'Status deletado',
             schema: {
                 mensagem: 'Status deletado com sucesso!'

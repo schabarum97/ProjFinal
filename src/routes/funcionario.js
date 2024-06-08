@@ -195,7 +195,7 @@ module.exports = (app) => {
             example: 1    
         }
 
-        #swagger.responses[200] = {
+        #swagger.responses[204] = {
             description: 'Funcionário deletado',
             schema: {
                 mensagem: 'Funcionário deletado com sucesso!'

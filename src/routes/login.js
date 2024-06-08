@@ -41,4 +41,24 @@ module.exports = (app) => {
         }    
     */
     );
+    //app.post('/login/post', loginController.newUser
+
+    /*
+        #swagger.tags = ["Login"]
+        
+        #swagger.summary = "Criação do usuário"
+
+        #swagger.description = 'Realiza o cadastro de um usuário no sistema'
+
+        #swagger.parameters['login/post'] = {
+            in: 'body',
+            description: 'Dados para criar um novo usuário',
+            required: true,
+            schema: {
+                "user": "Renan",
+                "pass": "1525"
+            }
+        }
+    */
+    //);
 };

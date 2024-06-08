@@ -14,8 +14,9 @@ const getById = async (req, res) => {
     }
 };
 
-const postFuncionarioAtividade = async (req, res) => {
+const postFuncionarioAtividade = async (req, res, next) => {
     try {
+        console.log(req.body);
         const retorno = await funcionarioAtividadeService.postFuncionarioAtividade(req.body);
         res.status(201).json(retorno);
     } catch (err) {
@@ -23,7 +24,7 @@ const postFuncionarioAtividade = async (req, res) => {
     }
 };
 
-const putFuncionarioAtividade = async (req, res) => {
+const putFuncionarioAtividade = async (req, res, next) => {
     try {
         let params = req.body;
         params.id = req.params.id;
@@ -38,7 +39,7 @@ const putFuncionarioAtividade = async (req, res) => {
     }
 };
 
-const patchFuncionarioAtividade = async (req, res) => {
+const patchFuncionarioAtividade = async (req, res, next) => {
     try {
         let params = req.body;
         params.id = req.params.id;
@@ -56,7 +57,7 @@ const patchFuncionarioAtividade = async (req, res) => {
 const deleteFuncionarioAtividade = async (req, res) => {
     try {
         const retorno = await funcionarioAtividadeService.deleteFuncionarioAtividade(req.params);
-        res.status(200).json(retorno);
+        res.status(204).json(retorno);
     } catch (err) {
         if (err.status === 404) {
             res.status(404).send(err.message);

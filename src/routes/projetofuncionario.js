@@ -26,9 +26,9 @@ module.exports = (app) => {
                 "projetoFuncionario": [
                     {
                     "prj_fun_id": 1,
-                    "prj_id": null,
-                    "tar_id": null,
-                    "stt_id": null
+                    "prj_id": 1,
+                    "tar_id": 1,
+                    "stt_id": 1
                     }
                 ]
             }
@@ -92,6 +92,8 @@ module.exports = (app) => {
             description: 'Dados para atualizar a relação ProjetoFuncionario',
             required: true,
             schema: {
+                "projeto": 1,
+                "tarefa": 1,
                 "status": 1
             }
         }

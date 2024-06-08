@@ -192,7 +192,7 @@ module.exports = (app) => {
             example: 1    
         }
 
-        #swagger.responses[200] = {
+        #swagger.responses[204] = {
             description: 'Projeto deletado',
             schema: {
                 mensagem: 'Projeto deletado com sucesso!'

@@ -33,4 +33,14 @@ const sql_get =
     }
 };
 
+const newUser = async (req, res, next) => {
+    try {
+        const retorno = await userService.newUser(req.body)
+        res.status(201).json(retorno)
+    } catch (err){
+        res.status(500).send(err.message)
+    }
+}
+
 module.exports.login = login;
+module.exports.newUser = newUser;

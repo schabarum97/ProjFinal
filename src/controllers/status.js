@@ -70,7 +70,7 @@ const patchStatus = async (req, res, next) => {
 const deleteStatus = async (req, res, next) => {
     try {
         await statusService.deleteStatus(req.params);
-        res.status(200).json({ mensagem: 'Status deletado com sucesso!' });
+        res.status(204).json({ mensagem: 'Status deletado com sucesso!' });
     } catch (err) {
         if (err.message === 'Status não encontrado') {
             res.status(404).send(err.message);

@@ -11,10 +11,10 @@
     "http"
   ],
   "consumes": [
-    "aplication/json"
+    "application/json"
   ],
   "produces": [
-    "aplication/json"
+    "application/json"
   ],
   "paths": {
     "/status/id/{id}": {
@@ -177,11 +177,11 @@
               "properties": {
                 "nome": {
                   "type": "string",
-                  "example": "Teste"
+                  "example": "96"
                 },
                 "tabela": {
                   "type": "string",
-                  "example": "P"
+                  "example": "Z"
                 },
                 "dataini": {
                   "type": "string",
@@ -401,7 +401,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Status deletado",
             "schema": {
               "type": "object",
@@ -781,7 +781,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Tarefa deletada",
             "schema": {
               "type": "object",
@@ -1137,7 +1137,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Projeto deletado",
             "schema": {
               "type": "object",
@@ -1505,7 +1505,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Atividade deletada",
             "schema": {
               "type": "object",
@@ -1965,7 +1965,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Funcionário deletado",
             "schema": {
               "type": "object",
@@ -2161,7 +2161,15 @@
             "schema": {
               "type": "object",
               "properties": {
+                "funcionario": {
+                  "type": "number",
+                  "example": 1
+                },
                 "atividade": {
+                  "type": "number",
+                  "example": 1
+                },
+                "status": {
                   "type": "number",
                   "example": 1
                 }
@@ -2289,7 +2297,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Relação FuncionárioAtividade deletada",
             "schema": {
               "type": "object",
@@ -2361,9 +2369,18 @@
                         "type": "number",
                         "example": 1
                       },
-                      "prj_id": {},
-                      "tar_id": {},
-                      "stt_id": {}
+                      "prj_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "tar_id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "stt_id": {
+                        "type": "number",
+                        "example": 1
+                      }
                     }
                   }
                 }
@@ -2476,6 +2493,14 @@
             "schema": {
               "type": "object",
               "properties": {
+                "projeto": {
+                  "type": "number",
+                  "example": 1
+                },
+                "tarefa": {
+                  "type": "number",
+                  "example": 1
+                },
                 "status": {
                   "type": "number",
                   "example": 1

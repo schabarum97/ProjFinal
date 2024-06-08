@@ -86,7 +86,9 @@ module.exports = (app) => {
             description: 'Dados para atualizar a relação FuncionárioAtividade',
             required: true,
             schema: {
-                "atividade": 1
+                "funcionario": 1,
+                "atividade": 1,
+                "status": 1
             }
         }
 
@@ -163,7 +165,7 @@ module.exports = (app) => {
             example: 1    
         }
 
-        #swagger.responses[200] = {
+        #swagger.responses[204] = {
             description: 'Relação FuncionárioAtividade deletada',
             schema: {
                 mensagem: 'Relação FuncionárioAtividade deletada com sucesso!'
