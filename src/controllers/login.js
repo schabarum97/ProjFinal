@@ -1,8 +1,6 @@
 const loginService = require('../services/login');
 
 const login = async (req, res) => {
-    console.log("Requisição recebida:", req.body);
-    console.log("Cabeçalho de autorização:", req.headers.authorization);
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Basic ')) {
         const basicToken = req.headers.authorization.split(' ')[1]; // Pega o token base64
@@ -22,8 +20,6 @@ const login = async (req, res) => {
                 req.body.user = user;
                 req.body.pass = pass;
 
-                console.log("Dados decodificados:", req.body);
-
                 const ret = await loginService.login(req.body);
                 res.cookie('auth', ret.token, {
                     sameSite: 'none',
@@ -32,7 +28,6 @@ const login = async (req, res) => {
                 });
                 res.status(201).json({ status: ret.status, usuario: ret.user });
             } catch (err) {
-                console.error('Erro ao decodificar o token:', err);
                 res.status(400).json({ type: 'ERRO', message: 'Token Basic inválido ou malformado' });
             }
         } else {

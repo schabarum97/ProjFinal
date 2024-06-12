@@ -1,7 +1,7 @@
 const loginController = require("../controllers/login");
 
 module.exports = (app) => {
-    app.post('/login', loginController.login);
+    app.post('/login', loginController.login
     /*
         #swagger.tags = ['Login']
         #swagger.summary = 'Login de usuário'
@@ -35,4 +35,5 @@ module.exports = (app) => {
             }
         }
     */
+    );
 }
