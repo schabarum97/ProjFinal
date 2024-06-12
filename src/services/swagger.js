@@ -11,17 +11,15 @@ const doc = {
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],
-    components: {
-        securitySchemes: {
-            BasicAuth: {
-                type: 'http',
-                scheme: 'basic'
-            }
+    securityDefinitions: {
+        basicAuth: {
+            type: "basic",
+            description: "Autenticação básica"
         }
     },
     security: [
         {
-            BasicAuth: []
+            basicAuth: []
         }
     ]
 }

@@ -14,7 +14,7 @@ const sql_get =
     const { user, pass } = params;
     const result = await db.query(sql_get, [user]);
     if (!result.rows.length) {
-        throw new Error("Usuário não existe");
+        throw new Error("Usuário não existe 1  1 1");
     } else {
         const salt = result.rows[0].log_salt;
         const password = result.rows[0].log_pass;

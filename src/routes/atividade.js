@@ -1,9 +1,8 @@
 const atividadeController = require("../controllers/atividade");
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-  app.get(
-    "/atividade/id/:id",
-    atividadeController.getById
+  app.get("/atividade/id/:id", checkPermission.check, atividadeController.getById
     /*
         #swagger.tags = ["Atividade"]
         
@@ -46,9 +45,7 @@ module.exports = (app) => {
     */
   );
 
-  app.post(
-    "/atividade",
-    atividadeController.postAtividade
+  app.post("/atividade",checkPermission.check, atividadeController.postAtividade
     /* 
         #swagger.tags = ["Atividade"]
         #swagger.summary = "Cria uma nova Atividade"
@@ -82,9 +79,7 @@ module.exports = (app) => {
     */
   );
 
-  app.put(
-    "/atividade/:id",
-    atividadeController.putAtividade
+  app.put("/atividade/:id",checkPermission.check, atividadeController.putAtividade
     /*
         #swagger.tags = ["Atividade"]
         
@@ -133,9 +128,7 @@ module.exports = (app) => {
     */
   );
 
-  app.patch(
-    "/atividade/:id",
-    atividadeController.patchAtividade
+  app.patch("/atividade/:id",checkPermission.check, atividadeController.patchAtividade
     /*
         #swagger.tags = ["Atividade"]
         
@@ -179,9 +172,7 @@ module.exports = (app) => {
     */
   );
 
-  app.delete(
-    "/atividade/:id",
-    atividadeController.deleteAtividade
+  app.delete("/atividade/:id",checkPermission.check, atividadeController.deleteAtividade
     /*
         #swagger.tags = ["Atividade"]
         

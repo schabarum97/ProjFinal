@@ -1,9 +1,8 @@
 const funcionarioController = require("../controllers/funcionario");
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-  app.get(
-    "/funcionario/id/:id",
-    funcionarioController.getById
+  app.get("/funcionario/id/:id",checkPermission.check, funcionarioController.getById
     /*
         #swagger.tags = ["Funcionário"]
         
@@ -43,9 +42,7 @@ module.exports = (app) => {
     */
   );
 
-  app.post(
-    "/funcionario",
-    funcionarioController.postFuncionario
+  app.post("/funcionario",checkPermission.check, funcionarioController.postFuncionario
     /* 
         #swagger.tags = ["Funcionário"]
         #swagger.summary = "Cria um novo Funcionário"
@@ -79,9 +76,7 @@ module.exports = (app) => {
     */
   );
 
-  app.put(
-    "/funcionario/:id",
-    funcionarioController.putFuncionario
+  app.put("/funcionario/:id",checkPermission.check, funcionarioController.putFuncionario
     /*
         #swagger.tags = ["Funcionário"]
         
@@ -130,9 +125,7 @@ module.exports = (app) => {
     */
   );
 
-  app.patch(
-    "/funcionario/:id",
-    funcionarioController.patchFuncionario
+  app.patch("/funcionario/:id",checkPermission.check, funcionarioController.patchFuncionario
     /*
         #swagger.tags = ["Funcionário"]
         
@@ -176,9 +169,7 @@ module.exports = (app) => {
     */
   );
 
-  app.delete(
-    "/funcionario/:id",
-    funcionarioController.deleteFuncionario
+  app.delete("/funcionario/:id",checkPermission.check, funcionarioController.deleteFuncionario
     /*
         #swagger.tags = ["Funcionário"]
         

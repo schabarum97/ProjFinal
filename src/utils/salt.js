@@ -1,4 +1,6 @@
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken')
+const fs = require('fs')
 
 function criarUsuario (senha){
     const salt = generateSalt()
@@ -18,6 +20,14 @@ function comparePassword(storedPassword, salt, providedPassword) {
     const hash = hashPassword(providedPassword, salt)
     return hash === storedPassword
 }
+
+function checkToken(token){
+    const privateKey = fs.readFileSync("./src/private/private_key.pem");
+    const decoded = jwt.verify(token, privateKey, {algorithm: 'RS256'})
+    return decoded;
+}
+
 module.exports.criarUsuario = criarUsuario;
 module.exports.comparePassword = comparePassword;
 module.exports.hashPassword = hashPassword;
+module.exports.checkToken = checkToken;

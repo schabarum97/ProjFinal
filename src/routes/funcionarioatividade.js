@@ -1,8 +1,9 @@
 const funcionarioAtividadeController = require('../controllers/funcionarioatividade');
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
 
-    app.get('/funcionarioAtividade/id/:id', funcionarioAtividadeController.getById
+    app.get('/funcionarioAtividade/id/:id', checkPermission.check, funcionarioAtividadeController.getById
     /*
         #swagger.tags = ["FuncionárioAtividade"]
         #swagger.summary = "Consulta FuncionárioAtividade por ID"
@@ -36,7 +37,7 @@ module.exports = (app) => {
     */
     );
 
-    app.post('/funcionarioAtividade', funcionarioAtividadeController.postFuncionarioAtividade
+    app.post('/funcionarioAtividade', checkPermission.check, funcionarioAtividadeController.postFuncionarioAtividade
     /* 
         #swagger.tags = ["FuncionárioAtividade"]
         #swagger.summary = "Cria uma nova relação FuncionárioAtividade"
@@ -67,7 +68,7 @@ module.exports = (app) => {
     */
     );
 
-    app.put('/funcionarioAtividade/:id', funcionarioAtividadeController.putFuncionarioAtividade
+    app.put('/funcionarioAtividade/:id', checkPermission.check, funcionarioAtividadeController.putFuncionarioAtividade
     /*
         #swagger.tags = ["FuncionárioAtividade"]
         #swagger.summary = "Atualiza relação FuncionárioAtividade por ID"
@@ -110,7 +111,7 @@ module.exports = (app) => {
     */
     );
 
-    app.patch('/funcionarioAtividade/:id', funcionarioAtividadeController.patchFuncionarioAtividade
+    app.patch('/funcionarioAtividade/:id', checkPermission.check, funcionarioAtividadeController.patchFuncionarioAtividade
     /*
         #swagger.tags = ["FuncionárioAtividade"]
         #swagger.summary = "Atualiza parcialmente relação FuncionárioAtividade por ID"
@@ -151,7 +152,7 @@ module.exports = (app) => {
     */
     );
 
-    app.delete('/funcionarioAtividade/:id', funcionarioAtividadeController.deleteFuncionarioAtividade
+    app.delete('/funcionarioAtividade/:id', checkPermission.check, funcionarioAtividadeController.deleteFuncionarioAtividade
     /*
         #swagger.tags = ["FuncionárioAtividade"]
         #swagger.summary = "Deleta relação FuncionárioAtividade por ID"

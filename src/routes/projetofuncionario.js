@@ -1,8 +1,9 @@
 const projetoFuncionarioController = require('../controllers/projetofuncionario');
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
 
-    app.get('/projetoFuncionario/id/:id', projetoFuncionarioController.getById
+    app.get('/projetoFuncionario/id/:id', checkPermission.check, projetoFuncionarioController.getById
     /*
         #swagger.tags = ["ProjetoFuncionario"]
         
@@ -39,7 +40,7 @@ module.exports = (app) => {
     */
     );
 
-    app.post('/projetoFuncionario', projetoFuncionarioController.postProjetoFuncionario
+    app.post('/projetoFuncionario', checkPermission.check, projetoFuncionarioController.postProjetoFuncionario
     /* 
         #swagger.tags = ["ProjetoFuncionario"]
         #swagger.summary = "Cria uma nova relação ProjetoFuncionario"
@@ -70,7 +71,7 @@ module.exports = (app) => {
     */
     );
 
-    app.put('/projetoFuncionario/:id', projetoFuncionarioController.putProjetoFuncionario
+    app.put('/projetoFuncionario/:id', checkPermission.check, projetoFuncionarioController.putProjetoFuncionario
     /*
         #swagger.tags = ["ProjetoFuncionario"]
         
@@ -116,7 +117,7 @@ module.exports = (app) => {
     */
     );
 
-    app.patch('/projetoFuncionario/:id', projetoFuncionarioController.patchProjetoFuncionario
+    app.patch('/projetoFuncionario/:id', checkPermission.check, projetoFuncionarioController.patchProjetoFuncionario
     /*
         #swagger.tags = ["ProjetoFuncionario"]
         
@@ -160,7 +161,7 @@ module.exports = (app) => {
     */
     );
 
-    app.delete('/projetoFuncionario/:id', projetoFuncionarioController.deleteProjetoFuncionario
+    app.delete('/projetoFuncionario/:id', checkPermission.check, projetoFuncionarioController.deleteProjetoFuncionario
     /*
         #swagger.tags = ["ProjetoFuncionario"]
         

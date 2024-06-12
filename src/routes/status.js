@@ -1,9 +1,8 @@
 const statusController = require("../controllers/status");
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-  app.get(
-    "/status/id/:id",
-    statusController.getById
+  app.get("/status/id/:id",checkPermission.check, statusController.getById
     /*
         #swagger.tags = ["Status"]
         
@@ -43,9 +42,7 @@ module.exports = (app) => {
     */
   );
 
-  app.get(
-    "/status/table/:table",
-    statusController.getByTable
+  app.get("/status/table/:table",checkPermission.check, statusController.getByTable
     /*
         #swagger.tags = ["Status"]
         
@@ -84,9 +81,7 @@ module.exports = (app) => {
     */
   );
 
-  app.post(
-    "/status",
-    statusController.postStatus
+  app.post("/status",checkPermission.check, statusController.postStatus
     /* 
         #swagger.tags = ["Status"]
         #swagger.summary = "Cria um novo Status"
@@ -119,9 +114,7 @@ module.exports = (app) => {
     */
   );
 
-  app.put(
-    "/status/:id",
-    statusController.putStatus
+  app.put("/status/:id",checkPermission.check, statusController.putStatus
     /*
         #swagger.tags = ["Status"]
         
@@ -169,9 +162,7 @@ module.exports = (app) => {
     */
   );
 
-  app.patch(
-    "/status/:id",
-    statusController.patchStatus
+  app.patch("/status/:id",checkPermission.check, statusController.patchStatus
     /*
         #swagger.tags = ["Status"]
         
@@ -215,9 +206,7 @@ module.exports = (app) => {
     */
   );
 
-  app.delete(
-    "/status/:id",
-    statusController.deleteStatus
+  app.delete("/status/:id",checkPermission.check, statusController.deleteStatus
     /*
         #swagger.tags = ["Status"]
         

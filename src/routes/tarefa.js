@@ -1,9 +1,8 @@
 const tarefaController = require("../controllers/tarefa");
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-  app.get(
-    "/tarefa/id/:id",
-    tarefaController.getById
+  app.get("/tarefa/id/:id",checkPermission.check, tarefaController.getById
     /*
         #swagger.tags = ["Tarefa"]
         
@@ -44,9 +43,7 @@ module.exports = (app) => {
     */
   );
 
-  app.post(
-    "/tarefa",
-    tarefaController.postTarefa
+  app.post("/tarefa",checkPermission.check, tarefaController.postTarefa
     /* 
         #swagger.tags = ["Tarefa"]
         #swagger.summary = "Cria uma nova Tarefa"
@@ -82,9 +79,7 @@ module.exports = (app) => {
     */
   );
 
-  app.put(
-    "/tarefa/:id",
-    tarefaController.putTarefa
+  app.put("/tarefa/:id",checkPermission.check, tarefaController.putTarefa
     /*
         #swagger.tags = ["Tarefa"]
         
@@ -134,9 +129,7 @@ module.exports = (app) => {
     */
   );
 
-  app.patch(
-    "/tarefa/:id",
-    tarefaController.patchTarefa
+  app.patch("/tarefa/:id",checkPermission.check, tarefaController.patchTarefa
     /*
         #swagger.tags = ["Tarefa"]
         
@@ -180,9 +173,7 @@ module.exports = (app) => {
     */
   );
 
-  app.delete(
-    "/tarefa/:id",
-    tarefaController.deleteTarefa
+  app.delete("/tarefa/:id",checkPermission.check, tarefaController.deleteTarefa
     /*
         #swagger.tags = ["Tarefa"]
         

@@ -1,9 +1,8 @@
 const projetoController = require("../controllers/projeto");
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-  app.get(
-    "/projeto/id/:id",
-    projetoController.getById
+  app.get("/projeto/id/:id",checkPermission.check, projetoController.getById
     /*
         #swagger.tags = ["Projeto"]
         
@@ -42,9 +41,7 @@ module.exports = (app) => {
     */
   );
 
-  app.post(
-    "/projeto",
-    projetoController.postProjeto
+  app.post("/projeto",checkPermission.check, projetoController.postProjeto
     /* 
         #swagger.tags = ["Projeto"]
         #swagger.summary = "Cria um novo Projeto"
@@ -77,9 +74,7 @@ module.exports = (app) => {
     */
   );
 
-  app.put(
-    "/projeto/:id",
-    projetoController.putProjeto
+  app.put("/projeto/:id",checkPermission.check, projetoController.putProjeto
     /*
         #swagger.tags = ["Projeto"]
         
@@ -127,9 +122,7 @@ module.exports = (app) => {
     */
   );
 
-  app.patch(
-    "/projeto/:id",
-    projetoController.patchProjeto
+  app.patch("/projeto/:id",checkPermission.check, projetoController.patchProjeto
     /*
         #swagger.tags = ["Projeto"]
         
@@ -173,9 +166,7 @@ module.exports = (app) => {
     */
   );
 
-  app.delete(
-    "/projeto/:id",
-    projetoController.deleteProjeto
+  app.delete("/projeto/:id",checkPermission.check, projetoController.deleteProjeto
     /*
         #swagger.tags = ["Projeto"]
         

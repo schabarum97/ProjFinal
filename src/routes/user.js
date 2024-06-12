@@ -1,9 +1,8 @@
-const usuariosController = require('../controllers/user')
+const usuariosController = require('../controllers/user');
+const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-    app.post(
-        '/user',
-        usuariosController.newUser
+    app.post('/user',checkPermission.check, usuariosController.newUser
         /* 
             #swagger.tags = ["User"]
             #swagger.summary = "Cria um novo usuário"
@@ -33,9 +32,7 @@ module.exports = (app) => {
         */
     );
 
-    app.get(
-        '/user',
-        usuariosController.getUser
+    app.get('/user',checkPermission.check, usuariosController.getUser
         /*
             #swagger.tags = ["User"]
             #swagger.summary = "Consulta todos os usuários"
@@ -65,9 +62,7 @@ module.exports = (app) => {
         */
     );
 
-    app.delete(
-        '/user/:id',
-        usuariosController.deleteUser
+    app.delete('/user/:id',checkPermission.check, usuariosController.deleteUser
         /*
             #swagger.tags = ["User"]
             #swagger.summary = "Deleta usuário por ID"
@@ -98,9 +93,7 @@ module.exports = (app) => {
         */
     );
 
-    app.patch(
-        '/user/:id',
-        usuariosController.patchPassword
+    app.patch('/user/:id',checkPermission.check, usuariosController.patchPassword
         /*
             #swagger.tags = ["User"]
             #swagger.summary = "Atualiza senha do usuário por ID"
