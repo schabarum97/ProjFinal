@@ -1,9 +1,18 @@
 const db = require('../configs/pg');
 
 const sql_get = `
-    SELECT prj_fun_id, prj_id, tar_id, stt_id 
-    FROM l_projeto_funcionario 
-    WHERE prj_fun_id = $1`;
+    SELECT l_projeto_funcionario.prj_fun_id, 
+            l_projeto_funcionario.prj_id, 
+            t_projeto.prj_nome,
+            l_projeto_funcionario.tar_id, 
+            t_tarefas.tar_descricao,
+            l_projeto_funcionario.stt_id,
+            t_status.stt_nome
+    FROM l_projeto_funcionario, t_projeto, t_tarefas, t_status
+    WHERE l_projeto_funcionario.prj_id = t_projeto.prj_id
+      and l_projeto_funcionario.tar_id = t_tarefas.tar_id
+      and l_projeto_funcionario.stt_id = t_status.stt_id
+      and prj_fun_id = $1`;
 
 const getById = async (id) => {
     try {

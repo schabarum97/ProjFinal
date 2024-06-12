@@ -1,9 +1,18 @@
 const db = require('../configs/pg');
 
 const sql_get = `
-    SELECT fun_atv_id, fun_id, atv_id, stt_id 
-    FROM l_funcionario_atividade 
-    WHERE fun_atv_id = $1`;
+    SELECT l_funcionario_atividade.fun_atv_id, 
+           l_funcionario_atividade.fun_id, 
+           t_funcionario.fun_nome,
+           l_funcionario_atividade.atv_id, 
+           t_atividade.atv_descricao,
+           l_funcionario_atividade.stt_id,
+           t_status.stt_nome
+    FROM l_funcionario_atividade, t_funcionario, t_atividade, t_status
+    WHERE l_funcionario_atividade.fun_id = t_funcionario.fun_id
+      and l_funcionario_atividade.atv_id = t_atividade.atv_id
+      and l_funcionario_atividade.stt_id = t_status.stt_id
+      and fun_atv_id = $1`;
 
 const getById = async (id) => {
     const result = await db.query(sql_get, [id]);

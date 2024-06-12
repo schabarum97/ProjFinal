@@ -23,10 +23,13 @@ module.exports = (app) => {
                 "total": 1,
                 "funcionarioAtividade": [
                     {
-                    "fun_atv_id": 1,
-                    "fun_id": 1,
-                    "atv_id": 1,
-                    "stt_id": 1
+                        "fun_atv_id": 1,
+                        "fun_id": 1,
+                        "fun_nome": "João Silva",
+                        "atv_id": 1,
+                        "atv_descricao": "Atualizar diagrama de classes",
+                        "stt_id": 1,
+                        "stt_nome": "Em andamento"
                     }
                 ]
             }

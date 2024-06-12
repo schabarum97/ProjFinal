@@ -28,8 +28,11 @@ module.exports = (app) => {
                     {
                     "prj_fun_id": 1,
                     "prj_id": 1,
+                    "prj_nome": "Projeto A",
                     "tar_id": 1,
-                    "stt_id": 1
+                    "tar_descricao": "Desenvolver funcionalidade X",
+                    "stt_id": 1,
+                    "stt_nome": "Em andamento"
                     }
                 ]
             }
