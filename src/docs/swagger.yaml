@@ -1543,11 +1543,7 @@
     },
     "/login": {
       "post": {
-        "tags": [
-          "Login"
-        ],
-        "summary": "Login de usuário",
-        "description": "Realiza o login de um usuário no sistema",
+        "description": "",
         "parameters": [
           {
             "name": "authorization",
@@ -1555,80 +1551,30 @@
             "type": "string"
           },
           {
-            "name": "credentials",
+            "name": "body",
             "in": "body",
-            "description": "Credenciais de login",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "nome_de_usuario"
+                "user": {
+                  "example": "any"
                 },
-                "password": {
-                  "type": "string",
-                  "example": "senha_do_usuario"
+                "pass": {
+                  "example": "any"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Login bem-sucedido",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "mensagem": {
-                  "type": "string",
-                  "example": "Login bem-sucedido!"
-                },
-                "token": {
-                  "type": "string",
-                  "example": "token_gerado"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
           "201": {
             "description": "Criado"
           },
           "400": {
             "description": "Solicitação Inválida"
           },
-          "401": {
-            "description": "Credenciais inválidas",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "mensagem": {
-                  "type": "string",
-                  "example": "Credenciais inválidas!"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
           "500": {
-            "description": "Erro no servidor",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "mensagem": {
-                  "type": "string",
-                  "example": "Erro no servidor!"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -2664,6 +2610,265 @@
           }
         }
       }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Cria um novo usuário",
+        "description": "Cria um novo usuário no sistema",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Dados para criar um novo usuário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "usuario_exemplo"
+                },
+                "pass": {
+                  "type": "string",
+                  "example": "senha123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuário criado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Usuário criado com sucesso!"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar criar o usuário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Consulta todos os usuários",
+        "description": "Consulta a lista de todos os usuários no sistema",
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 2
+                },
+                "usuarios": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "log_id": {
+                        "type": "number",
+                        "example": 2
+                      },
+                      "log_nome": {
+                        "type": "string",
+                        "example": "usuario2"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao tentar buscar os usuários",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Deleta usuário por ID",
+        "description": "Deleta um usuário específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do usuário",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usuário deletado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Usuário deletado com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar deletar o usuário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Atualiza senha do usuário por ID",
+        "description": "Atualiza a senha de um usuário específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do usuário",
+            "example": 1
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Dados para atualizar a senha do usuário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pass": {
+                  "type": "string",
+                  "example": "senha123"
+                },
+                "newpass": {
+                  "type": "string",
+                  "example": "novaSenha123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Senha do usuário atualizada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Senha atualizada com sucesso!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro ao tentar atualizar a senha do usuário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mensagem": {
+                  "type": "string",
+                  "example": "Erro no servidor!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
     }
-  }
+  },
+  "components": {
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ]
 }

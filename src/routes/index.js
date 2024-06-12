@@ -6,6 +6,7 @@ const Tarefa = require('./tarefa');
 const Atividade = require('./atividade');
 const ProjetoFuncionario = require('./projetofuncionario');
 const FuncionarioAtividade = require('./funcionarioatividade');
+const Usuario = require('./user');
 
 module.exports = (app) => {
     Login(app),
@@ -15,5 +16,6 @@ module.exports = (app) => {
     Tarefa(app)
     Atividade(app),
     ProjetoFuncionario(app),
-    FuncionarioAtividade(app)
+    FuncionarioAtividade(app),
+    Usuario(app)
 }

@@ -11,6 +11,19 @@ const doc = {
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],
+    components: {
+        securitySchemes: {
+            BasicAuth: {
+                type: 'http',
+                scheme: 'basic'
+            }
+        }
+    },
+    security: [
+        {
+            BasicAuth: []
+        }
+    ]
 }
 
 const outputFile = 'src/docs/swagger.yaml';
@@ -22,6 +35,7 @@ const endpointsFiles = [
     'src/routes/login.js',
     'src/routes/funcionario.js',
     'src/routes/funcionarioatividade.js',
-    'src/routes/projetofuncionario.js'
+    'src/routes/projetofuncionario.js',
+    'src/routes/user'
 ];
 swaggerAutogen(outputFile, endpointsFiles, doc);
