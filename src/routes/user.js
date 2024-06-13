@@ -2,7 +2,7 @@ const usuariosController = require('../controllers/user');
 const checkPermission = require("../middleware/checkPermission");
 
 module.exports = (app) => {
-    app.post('/user',checkPermission.check, usuariosController.newUser
+    app.post('/user', checkPermission.check,  usuariosController.newUser
         /* 
             #swagger.tags = ["User"]
             #swagger.summary = "Cria um novo usuário"
